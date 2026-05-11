@@ -1,0 +1,3365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Briggith Pernía · Masajes Terapéuticos</title>
+
+<!-- PWA -->
+<meta name="application-name" content="Briggith Pernía">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Briggith">
+<meta name="theme-color" content="#1a1510">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="Masajes Terapéuticos & Bienestar Integral — Briggith Pernía">
+
+<!-- PWA Icons (SVG inline as data URI) -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%231a1510'/%3E%3Ctext x='256' y='320' font-size='260' text-anchor='middle' fill='%23c9a84c'%3E🌿%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%231a1510'/%3E%3Ctext x='256' y='320' font-size='260' text-anchor='middle' fill='%23c9a84c'%3E🌿%3C/text%3E%3C/svg%3E">
+
+<!-- Manifest inline via JS (avoids extra file) -->
+<script>
+  // Crear manifest dinámicamente
+  const manifest = {
+    name: "Briggith Pernía · Masajes",
+    short_name: "Briggith",
+    description: "Masajes Terapéuticos & Bienestar Integral",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#1a1510",
+    theme_color: "#1a1510",
+    orientation: "portrait",
+    icons: [
+      { src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' fill='%231a1510'/%3E%3Ctext x='256' y='320' font-size='260' text-anchor='middle' fill='%23c9a84c'%3E🌿%3C/text%3E%3C/svg%3E", sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }
+    ]
+  };
+  const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+  const manifestURL = URL.createObjectURL(blob);
+  document.addEventListener('DOMContentLoaded', () => {
+    const link = document.createElement('link');
+    link.rel = 'manifest'; link.href = manifestURL;
+    document.head.appendChild(link);
+  });
+</script>
+<!-- ══ CONFIGURACIÓN: edita solo este bloque ══ -->
+<script>
+  const WA_NUMBER   = '593978911499';
+  const WA_MSG_ES   = encodeURIComponent('Hola Briggith, acabo de completar la evaluación y me gustaría agendar una cita 🌿');
+  const WA_MSG_EN   = encodeURIComponent('Hi Briggith, I just completed the evaluation and I would like to book an appointment 🌿');
+  const GMAIL_TO    = 'briggith.wellness@gmail.com';
+  const REVIEW_PAGE = window.location.href.split('?')[0] + '?review=1'; // link de reseñas
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- ══ CONFIGURACIÓN EXTERNA (NO subir config.js a GitHub) ══
+     Si ves "REEMPLAZA_CON..." en la consola, crea tu config.js:
+       cp config.example.js config.js   →  rellena las claves reales
+     Añade config.js a .gitignore para no exponerlas.
+-->
+<script src="config.js" onerror="console.warn('⚠️ config.js no encontrado — las claves de API no están configuradas. Copia config.example.js → config.js y rellena tus valores.')"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --beige: #f5ede0;
+  --beige-dark: #e8d9c4;
+  --beige-light: #faf6f0;
+  --gold: #c9a84c;
+  --gold-light: #e2c47a;
+  --gold-dark: #9e7a2e;
+  --black: #1a1510;
+  --black-soft: #2d2419;
+  --charcoal: #3d3428;
+  --gray: #7a6f5e;
+  --gray-light: #a99d8e;
+  --white: #ffffff;
+  --green: #4a7c59;
+  --green-light: #e8f4ec;
+  --yellow: #c9a010;
+  --yellow-light: #fef9e7;
+  --blue: #3a6b9e;
+  --blue-light: #e8f0fa;
+  --red: #b5433a;
+  --red-light: #fde8e7;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Jost', sans-serif;
+  --shadow: 0 4px 24px rgba(26,21,16,0.10);
+  --shadow-lg: 0 8px 48px rgba(26,21,16,0.16);
+  --radius: 12px;
+  --radius-sm: 6px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--beige);
+  color: var(--black);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--beige-dark); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+/* ── VIEW SYSTEM ── */
+.view { display: none; }
+.view.active { display: block; }
+#view-dashboard.active { display: flex; }
+
+/* ── UTILITIES ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px; border-radius: 40px; border: none;
+  font-family: var(--font-body); font-size: 14px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+  transition: all 0.3s ease; text-decoration: none;
+}
+.btn-gold { background: var(--gold); color: var(--white); }
+.btn-gold:hover { background: var(--gold-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(201,168,76,0.4); }
+.btn-outline { background: transparent; color: var(--gold); border: 1.5px solid var(--gold); }
+.btn-outline:hover { background: var(--gold); color: var(--white); }
+.btn-dark { background: var(--black-soft); color: var(--white); }
+.btn-dark:hover { background: var(--charcoal); }
+.btn-sm { padding: 8px 18px; font-size: 12px; }
+.btn-danger { background: var(--red); color: var(--white); }
+.btn-success { background: var(--green); color: var(--white); }
+.btn-warning { background: var(--yellow); color: var(--white); }
+
+.tag {
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+}
+.tag-green { background: var(--green-light); color: var(--green); }
+.tag-yellow { background: var(--yellow-light); color: var(--yellow); }
+.tag-blue { background: var(--blue-light); color: var(--blue); }
+.tag-red { background: var(--red-light); color: var(--red); }
+
+.card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 24px; box-shadow: var(--shadow);
+}
+
+.divider { width: 60px; height: 2px; background: var(--gold); margin: 16px auto; }
+
+.input-group { margin-bottom: 18px; }
+.input-group label {
+  display: block; font-size: 12px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gray); margin-bottom: 6px;
+}
+.input-group input,
+.input-group select,
+.input-group textarea {
+  width: 100%; padding: 12px 16px; border: 1.5px solid var(--beige-dark);
+  border-radius: var(--radius-sm); background: var(--beige-light);
+  font-family: var(--font-body); font-size: 14px; color: var(--black);
+  transition: border-color 0.2s;
+}
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus { outline: none; border-color: var(--gold); background: var(--white); }
+.input-group textarea { resize: vertical; min-height: 80px; }
+
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(26,21,16,0.75); z-index: 1000;
+  align-items: center; justify-content: center; padding: 20px;
+  overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--white); border-radius: var(--radius);
+  max-width: 640px; width: 100%; max-height: 92vh;
+  overflow-y: auto; padding: 40px; position: relative;
+  box-shadow: var(--shadow-lg); margin: auto;
+}
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  background: var(--beige-dark); border: none; border-radius: 50%;
+  width: 34px; height: 34px; cursor: pointer; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gray); transition: all 0.2s; z-index: 10;
+}
+.modal-close:hover { background: var(--gold); color: var(--white); }
+
+
+.alert-box {
+  border-radius: var(--radius-sm); padding: 14px 18px;
+  margin-bottom: 12px; font-size: 13px; display: flex; gap: 10px;
+  align-items: flex-start;
+}
+.alert-red { background: var(--red-light); color: var(--red); border-left: 3px solid var(--red); }
+.alert-yellow { background: var(--yellow-light); color: #7a5c00; border-left: 3px solid var(--yellow); }
+.alert-green { background: var(--green-light); color: var(--green); border-left: 3px solid var(--green); }
+.alert-blue { background: var(--blue-light); color: var(--blue); border-left: 3px solid var(--blue); }
+
+/* ── TOPBAR ── */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  background: rgba(245,237,224,0.97); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--beige-dark);
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px; gap: 8px;
+}
+.logo {
+  font-family: var(--font-display); font-size: 22px; font-weight: 600;
+  color: var(--black); cursor: pointer; letter-spacing: 0.02em; flex-shrink: 0;
+}
+.logo span { color: var(--gold); }
+
+/* Contenedor derecho — se adapta al espacio disponible */
+.topbar-right {
+  display: flex; align-items: center; gap: 10px;
+  flex-wrap: nowrap; flex-shrink: 1; min-width: 0;
+}
+
+/* Nav links — solo desktop */
+.nav-links { display: flex; align-items: center; gap: 2px; }
+.nav-link {
+  font-size: 12px; font-weight: 500; color: var(--charcoal);
+  text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase;
+  transition: color 0.2s; cursor: pointer; background: none; border: none;
+  font-family: var(--font-body); padding: 6px 10px; border-radius: 6px;
+  white-space: nowrap;
+}
+.nav-link:hover { color: var(--gold); background: rgba(201,168,76,0.08); }
+
+/* Lang switch — siempre visible, tamaño generoso */
+.lang-switch {
+  display: flex; align-items: center; gap: 3px;
+  background: var(--beige-dark); border-radius: 24px; padding: 4px;
+  flex-shrink: 0;
+}
+.lang-btn {
+  padding: 7px 16px; border-radius: 20px; border: none;
+  font-family: var(--font-body); font-size: 13px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s; letter-spacing: 0.06em;
+  background: transparent; color: var(--gray); min-width: 44px;
+  text-align: center;
+}
+.lang-btn.active {
+  background: var(--gold); color: var(--white);
+  box-shadow: 0 2px 8px rgba(201,168,76,0.35);
+}
+
+/* Botón acceso terapeuta */
+.btn-terapeuta {
+  background: var(--black-soft); color: var(--white);
+  border: none; border-radius: 40px; padding: 9px 18px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer;
+  white-space: nowrap; flex-shrink: 0; transition: all 0.2s;
+}
+.btn-terapeuta:hover { background: var(--charcoal); }
+
+/* Texto del botón terapeuta: completo en desktop, ícono en móvil */
+.acceso-full { display: inline; }
+.acceso-short { display: none; }
+
+@media (max-width: 500px) {
+  .acceso-full { display: none; }
+  .acceso-short { display: inline; font-size: 16px; }
+  .btn-terapeuta { padding: 9px 12px; border-radius: 50%; }
+}
+
+/* MÓVIL: una sola fila limpia */
+@media (max-width: 820px) {
+  #topbar { padding: 0 16px; height: 68px; }
+  .nav-links { display: none; }
+  #pwa-install-btn { display: none !important; }
+  .logo { font-size: 20px; }
+  .lang-btn { padding: 7px 13px; font-size: 12px; min-width: 40px; }
+  .btn-terapeuta { padding: 8px 14px; font-size: 11px; letter-spacing: 0.04em; }
+}
+@media (max-width: 360px) {
+  .logo { font-size: 18px; }
+  .lang-btn { padding: 6px 10px; font-size: 11px; min-width: 36px; }
+  .btn-terapeuta { padding: 7px 11px; font-size: 10px; }
+}
+
+/* ── HERO ── */
+#view-public { padding-top: 76px; }
+.hero {
+  min-height: 90vh; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background: var(--black-soft);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 20%, rgba(201,168,76,0.08) 0%, transparent 50%),
+              linear-gradient(135deg, #1a1510 0%, #2d2419 50%, #1a1510 100%);
+}
+.hero-ornament {
+  position: absolute; width: 520px; height: 520px;
+  border: 1px solid rgba(201,168,76,0.15); border-radius: 50%;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  animation: spin-slow 30s linear infinite;
+}
+.hero-ornament:nth-child(2) { width: 720px; height: 720px; animation-direction: reverse; animation-duration: 48s; border-style: dashed; }
+@keyframes spin-slow { to { transform: translate(-50%,-50%) rotate(360deg); } }
+.hero-content { position: relative; z-index: 2; text-align: center; padding: 40px 20px; max-width: 820px; }
+.hero-eyebrow { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.hero-title { font-family: var(--font-display); font-size: clamp(40px, 7.5vw, 78px); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 24px; }
+.hero-title em { font-style: italic; color: var(--gold-light); }
+.hero-desc { font-size: 16px; color: rgba(255,255,255,0.65); max-width: 500px; margin: 0 auto 40px; line-height: 1.9; }
+.hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ── SECTIONS ── */
+.section { padding: 80px 5%; }
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.section-title { font-family: var(--font-display); font-size: clamp(28px, 4vw, 44px); font-weight: 400; color: var(--black); line-height: 1.2; }
+.section-title em { font-style: italic; color: var(--gold); }
+
+/* ── SERVICES ── */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; max-width: 1160px; margin: 0 auto; }
+.service-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 30px 26px; text-align: center; box-shadow: var(--shadow);
+  position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s;
+}
+.service-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transform: scaleX(0); transition: transform 0.3s; transform-origin: left;
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.service-icon { font-size: 34px; margin-bottom: 14px; display: block; }
+.service-name { font-family: var(--font-display); font-size: 19px; font-weight: 600; color: var(--black); margin-bottom: 8px; }
+.service-desc { font-size: 13px; color: var(--gray); line-height: 1.7; }
+.service-tag { display: inline-block; margin-top: 12px; font-size: 11px; color: var(--gold); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ── ABOUT ── */
+.about-section { background: var(--black-soft); }
+.about-inner { max-width: 920px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.about-text .section-title { color: var(--white); }
+.about-text p { color: rgba(255,255,255,0.65); line-height: 1.9; margin-top: 16px; font-size: 14px; }
+.about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.stat-box { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); border-radius: var(--radius); padding: 24px; text-align: center; }
+.stat-num { font-family: var(--font-display); font-size: 42px; color: var(--gold-light); font-weight: 300; display: block; }
+.stat-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+/* ── EVAL FORM ── */
+.eval-section { background: var(--beige-light); }
+.eval-form-wrapper { max-width: 700px; margin: 0 auto; background: var(--white); border-radius: 16px; padding: 48px; box-shadow: var(--shadow-lg); border: 1px solid var(--beige-dark); }
+.eval-progress { display: flex; gap: 8px; margin-bottom: 32px; }
+.prog-step { flex: 1; height: 4px; border-radius: 2px; background: var(--beige-dark); transition: background 0.3s; }
+.prog-step.done { background: var(--gold); }
+.eval-step { display: none; }
+.eval-step.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.eval-step-title { font-family: var(--font-display); font-size: 26px; color: var(--black); margin-bottom: 6px; }
+.eval-step-sub { color: var(--gray); font-size: 13px; margin-bottom: 28px; }
+
+.checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.check-item {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--beige-light); border: 1.5px solid var(--beige-dark);
+  border-radius: var(--radius-sm); padding: 10px 14px; cursor: pointer;
+  transition: all 0.2s; user-select: none;
+}
+.check-item:hover { border-color: var(--gold-light); }
+.check-item.selected { border-color: var(--gold); background: #fdf8f0; }
+.check-item input { display: none; }
+.check-box { width: 18px; height: 18px; border: 2px solid var(--beige-dark); border-radius: 4px; flex-shrink: 0; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+.check-item.selected .check-box { background: var(--gold); border-color: var(--gold); color: var(--white); }
+.check-item.selected .check-box::after { content: '✓'; font-size: 11px; }
+.check-label { font-size: 13px; color: var(--charcoal); }
+
+.dynamic-block { display: none; background: var(--beige-light); border-radius: var(--radius-sm); padding: 18px; margin-top: -8px; margin-bottom: 18px; border-left: 3px solid var(--gold); }
+.dynamic-block.visible { display: block; animation: fadeIn 0.3s ease; }
+
+/* ── RESULT ── */
+.result-card { background: var(--white); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-lg); border-top: 4px solid var(--gold); }
+.result-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.result-icon { font-size: 52px; }
+.result-title { font-family: var(--font-display); font-size: 28px; font-weight: 600; color: var(--black); }
+.result-subtitle { color: var(--gray); font-size: 13px; }
+.therapy-recommend { background: linear-gradient(135deg,#fdf8f0,var(--beige-light)); border: 1.5px solid var(--gold-light); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 16px; }
+.therapy-main { font-family: var(--font-display); font-size: 22px; color: var(--black); margin-bottom: 4px; }
+.therapy-desc { font-size: 13px; color: var(--gray); }
+.therapy-list { list-style: none; }
+.therapy-list li { padding: 8px 0; border-bottom: 1px solid var(--beige-dark); display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.therapy-list li::before { content: '✦'; color: var(--gold); font-size: 10px; }
+.therapy-list li:last-child { border-bottom: none; }
+
+/* ── REVIEWS ── */
+.reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto 40px; }
+.review-card { background: var(--white); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow); }
+.stars { color: var(--gold); font-size: 16px; margin-bottom: 12px; }
+.review-text { font-size: 14px; color: var(--charcoal); line-height: 1.7; margin-bottom: 16px; font-style: italic; }
+.review-author { font-size: 12px; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.1em; }
+
+.star-select { display: flex; gap: 8px; margin-bottom: 16px; }
+.star-btn { font-size: 28px; background: none; border: none; cursor: pointer; color: var(--beige-dark); transition: color 0.15s, transform 0.15s; }
+.star-btn.lit { color: var(--gold); }
+.star-btn:hover { color: var(--gold); transform: scale(1.1); }
+
+/* ── FOOTER ── */
+footer { background: var(--black); color: rgba(255,255,255,0.5); text-align: center; padding: 36px 5%; font-size: 12px; letter-spacing: 0.08em; }
+footer span { color: var(--gold); }
+
+/* ── LOGIN ── */
+/* BUGFIX: display:flex no puede estar en el selector base porque
+   anula el .view { display:none } al quitar la clase "active".
+   Solo aplicamos flex cuando tiene la clase active. */
+#view-login { min-height: 100vh; align-items: center; justify-content: center; background: var(--black-soft); padding: 20px; }
+#view-login.active { display: flex; }
+.login-box { background: var(--white); border-radius: 16px; padding: 48px; max-width: 400px; width: 100%; box-shadow: var(--shadow-lg); }
+.login-logo { font-family: var(--font-display); font-size: 28px; text-align: center; color: var(--black); margin-bottom: 4px; }
+.login-logo span { color: var(--gold); }
+.login-sub { text-align: center; font-size: 12px; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 36px; }
+
+/* ── MOBILE BOTTOM NAV ── */
+#mobile-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
+  background: var(--black-soft); border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 6px 0 10px; padding-bottom: calc(6px + env(safe-area-inset-bottom));
+}
+.mobile-nav-items { display: flex; justify-content: space-around; align-items: center; }
+.mobile-nav-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  background: none; border: none; cursor: pointer; padding: 6px 10px;
+  color: rgba(255,255,255,0.5); font-family: var(--font-body);
+  font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase;
+  transition: all 0.2s; min-width: 56px;
+}
+.mobile-nav-btn .nav-icon { font-size: 20px; line-height: 1; }
+.mobile-nav-btn.active { color: var(--gold); }
+.mobile-nav-btn:hover { color: var(--gold-light); }
+
+@media (max-width: 820px) {
+  #mobile-nav { display: block; }
+  .sidebar { display: none; }
+  .dash-main { margin-left: 0; padding: 16px; padding-bottom: 90px; }
+}
+.sidebar {
+  width: 240px; background: var(--black-soft); flex-shrink: 0;
+  padding: 24px 0; position: fixed; top: 76px; left: 0;
+  height: calc(100vh - 76px); overflow-y: auto; z-index: 100;
+}
+.sidebar-section { padding: 14px 20px 4px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+.sidebar-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 20px; color: rgba(255,255,255,0.6);
+  text-decoration: none; font-size: 13px; cursor: pointer;
+  transition: all 0.2s; background: none; border: none; border-right: 3px solid transparent;
+  width: 100%; text-align: left; font-family: var(--font-body);
+}
+.sidebar-link:hover { color: var(--white); background: rgba(201,168,76,0.1); }
+.sidebar-link.active { color: var(--gold); background: rgba(201,168,76,0.12); border-right-color: var(--gold); }
+.sidebar-link .icon { font-size: 16px; width: 22px; text-align: center; }
+
+.dash-main { margin-left: 240px; flex: 1; padding: 32px; min-height: 100vh; background: #f0ebe2; }
+.dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+.dash-title { font-family: var(--font-display); font-size: 30px; font-weight: 400; color: var(--black); }
+.dash-section { display: none; }
+.dash-section.active { display: block; animation: fadeIn 0.2s ease; }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin-bottom: 28px; }
+.kpi-card { background: var(--white); border-radius: var(--radius); padding: 20px 24px; box-shadow: var(--shadow); border-left: 4px solid var(--gold); }
+.kpi-val { font-family: var(--font-display); font-size: 38px; color: var(--black); font-weight: 300; line-height: 1; }
+.kpi-label { font-size: 11px; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+
+.table-wrapper { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+thead { background: var(--black-soft); }
+th { padding: 14px 16px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+td { padding: 13px 16px; font-size: 13px; color: var(--charcoal); border-bottom: 1px solid var(--beige-dark); }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: var(--beige-light); }
+
+.risk-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+.risk-green { background: var(--green); }
+.risk-yellow { background: var(--yellow); }
+.risk-blue { background: var(--blue); }
+.risk-red { background: var(--red); }
+
+.session-entry { background: var(--white); border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 10px; border-left: 3px solid var(--gold); box-shadow: var(--shadow); }
+.session-date { font-size: 11px; color: var(--gray); letter-spacing: 0.1em; }
+.session-therapy { font-size: 15px; font-weight: 600; color: var(--black); margin: 4px 0; }
+.session-note { font-size: 13px; color: var(--charcoal); }
+
+.zones-body { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
+.zone-btn { padding: 8px; border: 1.5px solid var(--beige-dark); border-radius: var(--radius-sm); background: var(--beige-light); font-size: 12px; cursor: pointer; transition: all 0.2s; text-align: center; font-family: var(--font-body); }
+.zone-btn.marked { background: #fff3cd; border-color: var(--yellow); color: #7a5c00; font-weight: 600; }
+
+.review-admin-card { background: var(--white); border-radius: var(--radius); padding: 20px; margin-bottom: 12px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.review-actions { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+
+.advanced-suggestion { background: linear-gradient(135deg, var(--black-soft), #3d2d14); border-radius: var(--radius); padding: 22px; border: 1px solid rgba(201,168,76,0.3); margin-top: 16px; color: var(--white); }
+.adv-title { font-family: var(--font-display); font-size: 16px; color: var(--gold-light); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.adv-item { padding: 6px 0; font-size: 13px; color: rgba(255,255,255,0.8); border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; gap: 8px; }
+.adv-item:last-child { border-bottom: none; }
+
+/* ── AI CHAT ── */
+.ai-msg { display:flex; gap:10px; align-items:flex-start; }
+.ai-msg-user { flex-direction:row-reverse; }
+.ai-avatar { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; background:var(--beige-dark); }
+.ai-msg-user .ai-avatar { background:var(--gold); }
+.ai-bubble { background:var(--beige-light); border-radius:12px; padding:12px 16px; font-size:13px; line-height:1.7; color:var(--charcoal); max-width:85%; border:1px solid var(--beige-dark); }
+.ai-msg-user .ai-bubble { background:var(--gold); color:var(--white); border-color:var(--gold-dark); }
+.ai-bubble strong { color:var(--black); }
+.ai-msg-user .ai-bubble strong { color:var(--white); }
+.ai-quick-btn { padding:6px 14px; border:1.5px solid var(--beige-dark); border-radius:20px; background:var(--beige-light); font-family:var(--font-body); font-size:12px; cursor:pointer; transition:all 0.2s; color:var(--charcoal); }
+.ai-quick-btn:hover { border-color:var(--gold); background:#fdf8f0; color:var(--gold-dark); }
+.ai-typing { display:flex; gap:4px; align-items:center; padding:8px 12px; }
+.ai-typing span { width:7px; height:7px; background:var(--gold); border-radius:50%; animation:typing 1.2s infinite; }
+.ai-typing span:nth-child(2) { animation-delay:0.2s; }
+.ai-typing span:nth-child(3) { animation-delay:0.4s; }
+@keyframes typing { 0%,60%,100%{transform:translateY(0);opacity:0.5} 30%{transform:translateY(-6px);opacity:1} }
+
+/* ── BMI INDICATOR ── */
+.bmi-box { background:var(--beige-light); border-radius:var(--radius-sm); padding:14px 18px; border-left:3px solid var(--gold); margin-top:8px; }
+.bmi-value { font-family:var(--font-display); font-size:28px; font-weight:300; color:var(--black); }
+.bmi-label { font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; margin-top:4px; }
+#toast { position: fixed; bottom: 30px; right: 30px; z-index: 9999; background: var(--black-soft); color: var(--white); padding: 14px 22px; border-radius: 8px; font-size: 13px; box-shadow: var(--shadow-lg); transform: translateY(80px); opacity: 0; transition: all 0.3s; max-width: 320px; }
+#toast.show { transform: translateY(0); opacity: 1; }
+#toast.success { border-left: 4px solid var(--green); }
+#toast.error { border-left: 4px solid var(--red); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 820px) {
+  .about-inner { grid-template-columns: 1fr; gap: 32px; }
+  .checkbox-grid { grid-template-columns: 1fr; }
+  .eval-form-wrapper { padding: 28px 20px; }
+  .sidebar { display: none; }
+  .dash-main { margin-left: 0; padding: 16px; }
+  .kpi-grid { grid-template-columns: repeat(2,1fr); }
+  .nav-links { display: none; }
+  .modal { padding: 28px 20px; }
+}
+@media (max-width: 480px) {
+  .hero-cta { flex-direction: column; align-items: center; }
+  .services-grid { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<!-- ═══ TOPBAR ═══ -->
+<header id="topbar">
+  <div class="logo" onclick="showView('public')">Briggith <span>Pernía</span></div>
+  <div class="topbar-right">
+    <nav class="nav-links" id="public-nav">
+      <button class="nav-link" onclick="goTo('servicios')" data-i18n="nav_services">Servicios</button>
+      <button class="nav-link" onclick="goTo('evaluacion')" data-i18n="nav_eval">Evaluación</button>
+      <button class="nav-link" onclick="goTo('resenas')" data-i18n="nav_reviews">Reseñas</button>
+    </nav>
+    <div class="lang-switch">
+      <button class="lang-btn active" id="btn-es" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button id="pwa-install-btn" onclick="installPWA()" class="btn-terapeuta" style="display:none;background:var(--gold)">
+      📲
+    </button>
+    <button class="btn-terapeuta" onclick="showView('login')">
+      <span class="acceso-full" data-i18n="nav_login">Acceso Terapeuta</span>
+      <span class="acceso-short">🔐</span>
+    </button>
+  </div>
+</header>
+
+<!-- ═══ VIEW: PUBLIC ═══ -->
+<div id="view-public" class="view active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-ornament"></div>
+    <div class="hero-ornament"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow" data-i18n="hero_eyebrow">Masajes Terapéuticos · Bienestar Integral</p>
+      <h1 class="hero-title"><span data-i18n="hero_title1">Tu bienestar comienza</span><br><em data-i18n="hero_title2">aquí y ahora</em></h1>
+      <p class="hero-desc" data-i18n="hero_desc">Terapias personalizadas para tu cuerpo, mente y energía. Encuentra el equilibrio que mereces.</p>
+      <div class="hero-cta">
+        <button class="btn btn-gold" onclick="goTo('evaluacion')" data-i18n="hero_cta1">Solicitar Evaluación</button>
+        <button class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,0.4)" onclick="goTo('servicios')" data-i18n="hero_cta2">Ver Servicios</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="servicios">
+    <div class="section-header">
+      <p class="section-eyebrow" data-i18n="srv_eyebrow">Mis Tratamientos</p>
+      <h2 class="section-title"><span data-i18n="srv_title">Terapias para cada </span><em data-i18n="srv_title_em">necesidad</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="services-grid" id="services-grid"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section about-section">
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="section-eyebrow" style="color:var(--gold)" data-i18n="about_eyebrow">Sobre Mí</p>
+        <h2 class="section-title" style="color:var(--white)"><span data-i18n="about_title">Bienestar con </span><em data-i18n="about_title_em">alma y propósito</em></h2>
+        <p data-i18n="about_p1">Soy Briggith Pernía, masajista terapéutica certificada con años de experiencia en bienestar físico, mental y energético. Cada sesión es única y diseñada para ti.</p>
+        <p data-i18n="about_p2">Mi enfoque integra técnicas corporales, faciales y energéticas para ofrecerte una experiencia de relajación, equilibrio y armonía profunda.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-box"><span class="stat-num">8+</span><span class="stat-label" data-i18n="stat1">Años de experiencia</span></div>
+        <div class="stat-box"><span class="stat-num">600+</span><span class="stat-label" data-i18n="stat2">Clientes atendidos</span></div>
+        <div class="stat-box"><span class="stat-num">14</span><span class="stat-label" data-i18n="stat3">Terapias disponibles</span></div>
+        <div class="stat-box"><span class="stat-num">100%</span><span class="stat-label" data-i18n="stat4">Personalizado</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVALUATION FORM -->
+  <section class="section eval-section" id="evaluacion">
+    <div class="section-header">
+      <p class="section-eyebrow" data-i18n="eval_eyebrow">Evaluación Personalizada</p>
+      <h2 class="section-title"><span data-i18n="eval_title">Descubre la terapia </span><em data-i18n="eval_title_em">ideal para ti</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="eval-form-wrapper">
+      <div class="eval-progress" id="eval-progress">
+        <div class="prog-step done" id="ps1"></div>
+        <div class="prog-step" id="ps2"></div>
+        <div class="prog-step" id="ps3"></div>
+        <div class="prog-step" id="ps4"></div>
+      </div>
+
+      <!-- STEP 1: Personal -->
+      <div class="eval-step active" id="step1">
+        <h3 class="eval-step-title" data-i18n="s1_title">Datos Personales</h3>
+        <p class="eval-step-sub" data-i18n="s1_sub">Información básica para personalizar tu experiencia</p>
+        <div class="input-group">
+          <label data-i18n="lbl_name">Nombre completo</label>
+          <input type="text" id="f-name" data-i18n-ph="ph_name" placeholder="Tu nombre">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="input-group">
+            <label data-i18n="lbl_age">Edad</label>
+            <input type="number" id="f-age" min="12" max="99" placeholder="35">
+          </div>
+          <div class="input-group">
+            <label data-i18n="lbl_sex">Género</label>
+            <select id="f-sex">
+              <option value="" data-i18n="opt_select">Seleccionar</option>
+              <option value="F" data-i18n="opt_female">Femenino</option>
+              <option value="M" data-i18n="opt_male">Masculino</option>
+              <option value="O" data-i18n="opt_other">Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-group">
+          <label data-i18n="lbl_reason">¿Qué te trae hoy?</label>
+          <textarea id="f-reason" data-i18n-ph="ph_reason" placeholder="Ej: tensión en espalda, estrés, relajación..."></textarea>
+        </div>
+
+        <!-- PESO Y ALTURA -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="input-group">
+            <label data-i18n="lbl_weight">Peso</label>
+            <div style="display:flex;gap:8px">
+              <input type="number" id="f-weight" min="30" max="300" placeholder="70" style="flex:1" oninput="calcBMI()">
+              <select id="f-weight-unit" onchange="calcBMI()" style="width:80px;padding:12px 8px">
+                <option value="kg">kg</option>
+                <option value="lb">lb</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-group">
+            <label data-i18n="lbl_height">Altura</label>
+            <div style="display:flex;gap:8px">
+              <input type="number" id="f-height" min="100" max="250" placeholder="165" style="flex:1" oninput="calcBMI()">
+              <select id="f-height-unit" onchange="toggleHeightUnit()" style="width:80px;padding:12px 8px">
+                <option value="cm">cm</option>
+                <option value="ft">pies</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- Pies/pulgadas extra -->
+        <div id="f-height-ft-block" style="display:none;margin-top:-10px;margin-bottom:18px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div class="input-group" style="margin-bottom:0">
+              <label data-i18n="lbl_feet">Pies</label>
+              <input type="number" id="f-feet" min="3" max="8" placeholder="5" oninput="calcBMI()">
+            </div>
+            <div class="input-group" style="margin-bottom:0">
+              <label data-i18n="lbl_inches">Pulgadas</label>
+              <input type="number" id="f-inches" min="0" max="11" placeholder="5" oninput="calcBMI()">
+            </div>
+          </div>
+        </div>
+        <div id="bmi-display" style="display:none" class="bmi-box">
+          <div class="bmi-value" id="bmi-number">--</div>
+          <div class="bmi-label" id="bmi-label" style="color:var(--gold)">Calculando...</div>
+        </div>
+
+        <button class="btn btn-gold" onclick="evalStep(2)" style="width:100%;justify-content:center;margin-top:16px" data-i18n="btn_next">Continuar →</button>
+      </div>
+
+      <!-- STEP 2: Health & Pregnancy & Allergies -->
+      <div class="eval-step" id="step2">
+        <h3 class="eval-step-title" data-i18n="s2_title">Salud y Bienestar</h3>
+        <p class="eval-step-sub" data-i18n="s2_sub">Esta información es confidencial y nos ayuda a cuidarte mejor</p>
+
+        <!-- CONDITIONS -->
+        <div class="input-group">
+          <label data-i18n="lbl_conditions">¿Tienes alguna de estas condiciones? (opcional)</label>
+          <div class="checkbox-grid" id="conditions-grid"></div>
+        </div>
+
+        <!-- PREGNANCY -->
+        <div class="input-group">
+          <label data-i18n="lbl_pregnant">¿Estás embarazada?</label>
+          <select id="f-pregnant" onchange="togglePregnancy()">
+            <option value="no" data-i18n="opt_no">No</option>
+            <option value="yes" data-i18n="opt_yes">Sí</option>
+          </select>
+        </div>
+        <div class="dynamic-block" id="block-pregnancy">
+          <div class="input-group">
+            <label data-i18n="lbl_trimester">Trimestre</label>
+            <select id="f-trimester">
+              <option value="1" data-i18n="opt_t1">Primer trimestre (1–3 meses)</option>
+              <option value="2" data-i18n="opt_t2">Segundo trimestre (4–6 meses)</option>
+              <option value="3" data-i18n="opt_t3">Tercer trimestre (7–9 meses)</option>
+            </select>
+          </div>
+          <div class="input-group">
+            <label data-i18n="lbl_month">Mes de embarazo</label>
+            <select id="f-preg-month">
+              <option value="1">Mes 1</option><option value="2">Mes 2</option><option value="3">Mes 3</option>
+              <option value="4">Mes 4</option><option value="5">Mes 5</option><option value="6">Mes 6</option>
+              <option value="7">Mes 7</option><option value="8">Mes 8</option><option value="9">Mes 9</option>
+            </select>
+          </div>
+          <div class="input-group" style="margin-bottom:0">
+            <label data-i18n="lbl_high_risk">¿Es embarazo de alto riesgo?</label>
+            <select id="f-high-risk">
+              <option value="no" data-i18n="opt_no">No</option>
+              <option value="yes" data-i18n="opt_yes">Sí</option>
+              <option value="unsure" data-i18n="opt_unsure">No estoy segura</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ALLERGIES -->
+        <div class="input-group">
+          <label data-i18n="lbl_allergies">¿Tienes alergias?</label>
+          <select id="f-allergies" onchange="toggleAllergies()">
+            <option value="no" data-i18n="opt_no">No</option>
+            <option value="yes" data-i18n="opt_yes">Sí</option>
+          </select>
+        </div>
+        <div class="dynamic-block" id="block-allergies">
+          <div class="input-group">
+            <label data-i18n="lbl_allergy_type">¿A qué eres alérgica/o? (selecciona todo lo que aplique)</label>
+            <div class="checkbox-grid" id="allergy-types-grid" style="margin-bottom:12px"></div>
+          </div>
+          <div class="input-group" style="margin-bottom:0">
+            <label data-i18n="lbl_allergy_other">Especifica si hay algo más</label>
+            <input type="text" id="f-allergy-other" data-i18n-ph="ph_allergy_other" placeholder="Ej: látex, menta, eucalipto...">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label data-i18n="lbl_meds">¿Tomas algún medicamento?</label>
+          <input type="text" id="f-meds" data-i18n-ph="ph_meds" placeholder="Ej: anticoagulantes, antihipertensivos...">
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:8px">
+          <button class="btn btn-outline" onclick="evalStep(1)" style="flex:1" data-i18n="btn_back">← Atrás</button>
+          <button class="btn btn-gold" onclick="evalStep(3)" style="flex:2" data-i18n="btn_next">Continuar →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Preferences -->
+      <div class="eval-step" id="step3">
+        <h3 class="eval-step-title" data-i18n="s3_title">Tu Experiencia Ideal</h3>
+        <p class="eval-step-sub" data-i18n="s3_sub">Cuéntame qué buscas en tu sesión</p>
+        <div class="input-group">
+          <label data-i18n="lbl_goal">Objetivo principal</label>
+          <select id="f-goal">
+            <option value="relax" data-i18n="goal_relax">Relajación profunda</option>
+            <option value="pain" data-i18n="goal_pain">Alivio de tensiones y dolores</option>
+            <option value="energy" data-i18n="goal_energy">Equilibrio y bienestar energético</option>
+            <option value="beauty" data-i18n="goal_beauty">Cuidado facial y rejuvenecimiento</option>
+            <option value="lymph" data-i18n="goal_lymph">Drenaje y desinflamación</option>
+            <option value="sport" data-i18n="goal_sport">Recuperación muscular</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label data-i18n="lbl_intensity">Intensidad preferida</label>
+          <select id="f-intensity">
+            <option value="light" data-i18n="int_light">Suave y delicado</option>
+            <option value="medium" data-i18n="int_medium">Moderado</option>
+            <option value="deep" data-i18n="int_deep">Profundo e intenso</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label data-i18n="lbl_focus">Zona de atención especial</label>
+          <select id="f-focus">
+            <option value="full" data-i18n="foc_full">Cuerpo completo</option>
+            <option value="back" data-i18n="foc_back">Espalda y hombros</option>
+            <option value="face" data-i18n="foc_face">Cara y cuello</option>
+            <option value="hands_feet" data-i18n="foc_handfeet">Manos y pies</option>
+            <option value="head" data-i18n="foc_head">Cabeza y cuero cabelludo</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label data-i18n="lbl_prev_massage">¿Has tenido masajes antes?</label>
+          <select id="f-prev">
+            <option value="yes_often" data-i18n="prev_often">Sí, regularmente</option>
+            <option value="yes_few" data-i18n="prev_few">Sí, algunas veces</option>
+            <option value="no" data-i18n="prev_no">No, es mi primera vez</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:8px">
+          <button class="btn btn-outline" onclick="evalStep(2)" style="flex:1" data-i18n="btn_back">← Atrás</button>
+          <button class="btn btn-gold" onclick="evalStep(4)" style="flex:2" data-i18n="btn_see_result">Ver mi resultado →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Result -->
+      <div class="eval-step" id="step4">
+        <div id="eval-result"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="section" id="resenas" style="background:var(--beige)">
+    <div class="section-header">
+      <p class="section-eyebrow" data-i18n="rev_eyebrow">Testimonios</p>
+      <h2 class="section-title"><span data-i18n="rev_title">Lo que dicen mis </span><em data-i18n="rev_title_em">clientes</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="reviews-grid" id="public-reviews-grid"></div>
+    <div style="text-align:center;margin-top:16px">
+      <button class="btn btn-outline" onclick="openModal('modal-review')" data-i18n="btn_leave_review">Dejar mi reseña</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 <span>Briggith Pernía</span> · <span data-i18n="footer_sub">Masajes Terapéuticos & Bienestar Integral</span></p>
+    <p style="margin-top:8px;font-size:11px" data-i18n="footer_rights">Todos los derechos reservados · Terapias personalizadas con amor y profesionalismo</p>
+  </footer>
+</div>
+
+<!-- ═══ VIEW: LOGIN ═══ -->
+<div id="view-login" class="view">
+  <div class="login-box">
+    <div class="login-logo">Briggith <span>Pernía</span></div>
+    <p class="login-sub" data-i18n="login_sub">Panel Privado de Terapeuta</p>
+    <div class="input-group">
+      <label data-i18n="lbl_user">Usuario</label>
+      <input type="text" id="l-user" placeholder="briggith">
+    </div>
+    <div class="input-group">
+      <label data-i18n="lbl_pass">Contraseña</label>
+      <input type="password" id="l-pass" placeholder="••••••••">
+    </div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;margin-bottom:16px" onclick="doLogin()" data-i18n="btn_login">Ingresar al Panel</button>
+    <p style="font-size:12px;text-align:center;color:var(--gray)"></p>
+    <div style="text-align:center;margin-top:16px">
+      <button class="btn btn-outline btn-sm" onclick="showView('public')" data-i18n="btn_back_site">← Volver al sitio</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ VIEW: DASHBOARD ═══ -->
+<div id="view-dashboard" class="view">
+  <!-- MOBILE BOTTOM NAV -->
+  <nav id="mobile-nav">
+    <div class="mobile-nav-items">
+      <button class="mobile-nav-btn active" id="mn-overview" onclick="showDash('overview')">
+        <span class="nav-icon">📊</span><span>Resumen</span>
+      </button>
+      <button class="mobile-nav-btn" id="mn-clients" onclick="showDash('clients')">
+        <span class="nav-icon">👥</span><span>Clientes</span>
+      </button>
+      <button class="mobile-nav-btn" id="mn-sessions" onclick="showDash('sessions')">
+        <span class="nav-icon">📋</span><span>Sesiones</span>
+      </button>
+      <button class="mobile-nav-btn" id="mn-ai" onclick="showDash('ai')">
+        <span class="nav-icon">🤖</span><span>IA</span>
+      </button>
+      <button class="mobile-nav-btn" id="mn-reviews" onclick="showDash('reviews')">
+        <span class="nav-icon">⭐</span><span>Reseñas</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="dash-layout">
+    <aside class="sidebar">
+      <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:8px">
+        <div style="font-family:var(--font-display);color:var(--white);font-size:16px">Briggith <span style="color:var(--gold)">Pernía</span></div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px" data-i18n="dash_panel">Panel Terapeuta</div>
+      </div>
+      <div class="sidebar-section" data-i18n="dash_main">Principal</div>
+      <button class="sidebar-link active" id="sl-overview" onclick="showDash('overview')"><span class="icon">📊</span><span data-i18n="sl_overview">Resumen</span></button>
+      <button class="sidebar-link" id="sl-clients" onclick="showDash('clients')"><span class="icon">👥</span><span data-i18n="sl_clients">Clientes</span></button>
+      <div class="sidebar-section" data-i18n="dash_mgmt">Gestión</div>
+      <button class="sidebar-link" id="sl-sessions" onclick="showDash('sessions')"><span class="icon">📋</span><span data-i18n="sl_sessions">Sesiones</span></button>
+      <button class="sidebar-link" id="sl-reviews" onclick="showDash('reviews')"><span class="icon">⭐</span><span data-i18n="sl_reviews">Reseñas</span></button>
+      <div class="sidebar-section" data-i18n="dash_clinical">Interno</div>
+      <button class="sidebar-link" id="sl-clinical" onclick="showDash('clinical')"><span class="icon">🌿</span><span data-i18n="sl_clinical">Guía de Terapias</span></button>
+      <button class="sidebar-link" id="sl-ai" onclick="showDash('ai')"><span class="icon">🤖</span><span data-i18n="sl_ai">Asistente IA</span></button>
+      <div style="position:absolute;bottom:16px;left:0;right:0;padding:0 16px">
+        <div class="lang-switch" style="margin-bottom:12px;justify-content:center">
+          <button class="lang-btn active" id="dbtn-es" onclick="setLang('es')">ES</button>
+          <button class="lang-btn" id="dbtn-en" onclick="setLang('en')">EN</button>
+        </div>
+        <div id="db-status" style="display:none;font-size:11px;text-align:center;padding:4px 8px;margin-bottom:8px;border-radius:6px;background:rgba(255,255,255,0.08)"></div>
+        <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center" onclick="doLogout()" data-i18n="btn_logout">Cerrar sesión</button>
+      </div>
+    </aside>
+    <main class="dash-main">
+      <div class="dash-section active" id="ds-overview">
+        <div class="dash-header">
+          <h2 class="dash-title" data-i18n="ds_overview">Resumen</h2>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <button class="btn btn-gold btn-sm" onclick="openModal('modal-new-client')" data-i18n="btn_new_client">+ Nueva Clienta</button>
+            <button class="btn btn-outline btn-sm" onclick="exportBackup()" title="Descargar copia de seguridad">💾 Backup</button>
+            <label class="btn btn-outline btn-sm" style="cursor:pointer" title="Restaurar desde backup">
+              📂 Restaurar<input type="file" accept=".json" style="display:none" onchange="importBackup(this)">
+            </label>
+          </div>
+        </div>
+        <div class="kpi-grid" id="kpi-grid"></div>
+        <div class="card"><h3 style="font-family:var(--font-display);font-size:20px;margin-bottom:16px" data-i18n="recent_clients">Clientes Recientes</h3><div class="table-wrapper" id="recent-clients-table"></div></div>
+      </div>
+      <div class="dash-section" id="ds-clients">
+        <div class="dash-header">
+          <h2 class="dash-title" data-i18n="ds_clients">Mis Clientes</h2>
+          <button class="btn btn-gold btn-sm" onclick="openModal('modal-new-client')" data-i18n="btn_new_client">+ Nueva Clienta</button>
+        </div>
+        <div class="card" style="margin-bottom:20px">
+          <input type="text" id="search-clients" data-i18n-ph="ph_search" placeholder="🔍 Buscar cliente..." style="width:100%;padding:10px 14px;border:1.5px solid var(--beige-dark);border-radius:8px;font-family:var(--font-body);font-size:14px;background:var(--beige-light)" oninput="renderClientsTable()">
+        </div>
+        <div class="table-wrapper" id="clients-table"></div>
+      </div>
+      <div class="dash-section" id="ds-sessions">
+        <div class="dash-header">
+          <h2 class="dash-title" data-i18n="ds_sessions">Historial de Sesiones</h2>
+          <button class="btn btn-gold btn-sm" onclick="openModal('modal-new-session')" data-i18n="btn_new_session">+ Registrar Sesión</button>
+        </div>
+        <div id="sessions-list"></div>
+      </div>
+      <div class="dash-section" id="ds-reviews">
+        <div class="dash-header"><h2 class="dash-title" data-i18n="ds_reviews">Moderación de Reseñas</h2></div>
+        <!-- Review link generator — renderizado dinámicamente por renderReviewLinkCard() --><div id="review-link-card"></div>
+        <div id="reviews-admin-list"></div>
+      </div>
+      <div class="dash-section" id="ds-clinical">
+        <div class="dash-header"><h2 class="dash-title" data-i18n="ds_clinical">Guía Interna de Terapias</h2></div>
+        <div id="clinical-rules-display"></div>
+      </div>
+
+      <!-- IA MODULE -->
+      <div class="dash-section" id="ds-ai">
+        <div class="dash-header">
+          <h2 class="dash-title">🤖 <span data-i18n="ds_ai">Asistente IA</span></h2>
+        </div>
+
+        <!-- Client selector for context -->
+        <div class="card" style="margin-bottom:20px">
+          <div style="font-family:var(--font-display);font-size:18px;margin-bottom:12px">
+            🌿 <span data-i18n="ai_context">Contexto de consulta</span>
+          </div>
+          <div class="input-group" style="margin-bottom:0">
+            <label data-i18n="ai_select_client">Selecciona una clienta para dar contexto (opcional)</label>
+            <select id="ai-client-select" onchange="loadAIContext()">
+              <option value="" data-i18n="ai_no_client">Sin clienta seleccionada — consulta general</option>
+            </select>
+          </div>
+          <div id="ai-client-summary" style="margin-top:12px;display:none"></div>
+        </div>
+
+        <!-- Chat interface -->
+        <div class="card" style="margin-bottom:20px">
+          <div id="ai-chat-messages" style="min-height:200px;max-height:450px;overflow-y:auto;margin-bottom:16px;display:flex;flex-direction:column;gap:12px">
+            <div class="ai-msg ai-msg-bot">
+              <div class="ai-avatar">🤖</div>
+              <div class="ai-bubble" id="ai-welcome-msg">
+                Hola Briggith 🌿 Soy tu asistente especializado en masoterapia. Puedes preguntarme cosas como:<br><br>
+                • <em>"¿Qué terapia le recomiendo a esta clienta?"</em><br>
+                • <em>"¿Puedo aplicar tejido profundo con hipertensión?"</em><br>
+                • <em>"¿Cómo adapto el masaje para embarazadas?"</em><br><br>
+                Selecciona una clienta arriba para que mis respuestas sean más precisas.
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick questions -->
+          <div style="margin-bottom:14px">
+            <p style="font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px" data-i18n="ai_quick">Preguntas rápidas:</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px" id="ai-quick-btns">
+              <button class="ai-quick-btn" onclick="sendQuickAI(this)">¿Qué terapia recomiendas?</button>
+              <button class="ai-quick-btn" onclick="sendQuickAI(this)">¿Qué debo evitar?</button>
+              <button class="ai-quick-btn" onclick="sendQuickAI(this)">¿Puedo aplicar tejido profundo?</button>
+              <button class="ai-quick-btn" onclick="sendQuickAI(this)">¿Cómo adapto la sesión?</button>
+              <button class="ai-quick-btn" onclick="sendQuickAI(this)">¿Qué presión usar?</button>
+              <button class="ai-quick-btn" onclick="sendQuickAI(this)">¿Es seguro el drenaje linfático?</button>
+            </div>
+          </div>
+
+          <!-- Input -->
+          <div style="display:flex;gap:10px;align-items:flex-end">
+            <textarea id="ai-input" rows="2"
+              placeholder="Escribe tu pregunta aquí..."
+              style="flex:1;padding:12px 16px;border:1.5px solid var(--beige-dark);border-radius:10px;font-family:var(--font-body);font-size:14px;resize:none;background:var(--beige-light)"
+              onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAIMessage();}"></textarea>
+            <button class="btn btn-gold" onclick="sendAIMessage()" id="ai-send-btn" style="padding:12px 20px;border-radius:10px">
+              <span id="ai-send-label">Enviar</span>
+            </button>
+          </div>
+          <p style="font-size:11px;color:var(--gray);margin-top:8px" data-i18n="ai_disclaimer">
+            * La IA es un apoyo profesional. Siempre usa tu criterio como terapeuta certificada.
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ═══ MODALS ═══ -->
+
+<!-- NEW CLIENT -->
+<div class="modal-overlay" id="modal-new-client">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-new-client')">✕</button>
+    <h2 style="font-family:var(--font-display);font-size:26px;margin-bottom:20px" data-i18n="modal_new_client">Nueva Clienta</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="input-group"><label data-i18n="lbl_name">Nombre</label><input type="text" id="nc-name"></div>
+      <div class="input-group"><label data-i18n="lbl_age">Edad</label><input type="number" id="nc-age" min="1" max="120"></div>
+    </div>
+    <div class="input-group"><label data-i18n="lbl_email">Email / Contacto</label><input type="text" id="nc-email"></div>
+    <div class="input-group">
+      <label data-i18n="lbl_conditions_dash">Condiciones de salud relevantes</label>
+      <div id="nc-conditions-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px"></div>
+    </div>
+    <div class="input-group"><label data-i18n="lbl_meds">Medicamentos</label><input type="text" id="nc-meds"></div>
+    <div class="input-group"><label data-i18n="lbl_allergies_dash">Alergias</label><input type="text" id="nc-allergies-text" placeholder="Ej: aceites esenciales, cremas..."></div>
+    <div class="input-group"><label data-i18n="lbl_notes">Notas internas</label><textarea id="nc-notes"></textarea></div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="saveNewClient()" data-i18n="btn_save_client">Guardar Clienta</button>
+  </div>
+</div>
+
+<!-- CLIENT DETAIL -->
+<div class="modal-overlay" id="modal-client-detail">
+  <div class="modal" style="max-width:800px">
+    <button class="modal-close" onclick="closeModal('modal-client-detail')">✕</button>
+    <div id="client-detail-content"></div>
+  </div>
+</div>
+
+<!-- NEW SESSION -->
+<div class="modal-overlay" id="modal-new-session">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-new-session')">✕</button>
+    <h2 style="font-family:var(--font-display);font-size:26px;margin-bottom:20px" data-i18n="modal_new_session">Registrar Sesión</h2>
+    <div class="input-group"><label data-i18n="lbl_client">Clienta</label><select id="ns-client" onchange="loadSessionRec()"></select></div>
+    <div id="ns-recommendation" style="margin-bottom:16px"></div>
+    <div class="input-group"><label data-i18n="lbl_therapy">Terapia aplicada</label><select id="ns-therapy"></select></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="input-group"><label data-i18n="lbl_date">Fecha</label><input type="date" id="ns-date"></div>
+      <div class="input-group"><label data-i18n="lbl_duration">Duración (min)</label><input type="number" id="ns-duration" value="60" min="15" max="180"></div>
+    </div>
+    <div class="input-group"><label data-i18n="lbl_session_notes">Notas de la sesión</label><textarea id="ns-notes"></textarea></div>
+    <div class="input-group"><label data-i18n="lbl_evolution">Evolución</label>
+      <select id="ns-progress">
+        <option value="mejora" data-i18n="prog_good">Mejora notable</option>
+        <option value="leve" data-i18n="prog_slight">Leve mejoría</option>
+        <option value="igual" data-i18n="prog_same">Sin cambios observados</option>
+        <option value="revision" data-i18n="prog_review">Requiere seguimiento</option>
+      </select>
+    </div>
+    <div class="input-group"><label data-i18n="lbl_zones">Zonas con contracturas / tensión</label><div class="zones-body" id="ns-zones"></div></div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:16px" onclick="saveSession()" data-i18n="btn_save_session">Guardar Sesión</button>
+  </div>
+</div>
+
+<!-- EDIT SESSION -->
+<div class="modal-overlay" id="modal-edit-session">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-edit-session')">✕</button>
+    <h2 style="font-family:var(--font-display);font-size:24px;margin-bottom:20px" data-i18n="modal_edit_session">Editar Sesión</h2>
+    <div class="input-group"><label data-i18n="lbl_therapy">Terapia</label><input type="text" id="es-therapy"></div>
+    <div class="input-group"><label data-i18n="lbl_session_notes">Notas</label><textarea id="es-notes" rows="4"></textarea></div>
+    <div class="input-group"><label data-i18n="lbl_evolution">Evolución</label>
+      <select id="es-progress">
+        <option value="mejora" data-i18n="prog_good">Mejora notable</option>
+        <option value="leve" data-i18n="prog_slight">Leve mejoría</option>
+        <option value="igual" data-i18n="prog_same">Sin cambios</option>
+        <option value="revision" data-i18n="prog_review">Requiere seguimiento</option>
+      </select>
+    </div>
+    <input type="hidden" id="es-idx">
+    <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="saveEditSession()" data-i18n="btn_save_changes">Guardar cambios</button>
+  </div>
+</div>
+
+<!-- REVIEW FORM -->
+<div class="modal-overlay" id="modal-review">
+  <div class="modal" style="max-width:500px">
+    <button class="modal-close" onclick="closeModal('modal-review')">✕</button>
+    <h2 style="font-family:var(--font-display);font-size:26px;margin-bottom:6px" data-i18n="modal_review">Dejar una reseña</h2>
+    <p style="color:var(--gray);font-size:13px;margin-bottom:24px" data-i18n="review_sub">Tu experiencia ayuda a otras personas a conocerme</p>
+    <div class="input-group"><label data-i18n="lbl_your_name">Tu nombre</label><input type="text" id="r-name"></div>
+    <div class="input-group">
+      <label data-i18n="lbl_rating">Calificación</label>
+      <div class="star-select" id="star-select">
+        <button class="star-btn" onclick="setStars(1)">★</button>
+        <button class="star-btn" onclick="setStars(2)">★</button>
+        <button class="star-btn" onclick="setStars(3)">★</button>
+        <button class="star-btn" onclick="setStars(4)">★</button>
+        <button class="star-btn" onclick="setStars(5)">★</button>
+      </div>
+    </div>
+    <div class="input-group"><label data-i18n="lbl_comment">Tu comentario</label><textarea id="r-text" rows="4"></textarea></div>
+    <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="submitReview()" data-i18n="btn_submit_review">Enviar reseña</button>
+  </div>
+</div>
+
+<!-- EDIT REVIEW -->
+<div class="modal-overlay" id="modal-edit-review">
+  <div class="modal" style="max-width:500px">
+    <button class="modal-close" onclick="closeModal('modal-edit-review')">✕</button>
+    <h2 style="font-family:var(--font-display);font-size:24px;margin-bottom:20px" data-i18n="modal_edit_review">Editar Reseña</h2>
+    <div class="input-group"><label data-i18n="lbl_your_name">Nombre</label><input type="text" id="er-name"></div>
+    <div class="input-group"><label data-i18n="lbl_comment">Comentario</label><textarea id="er-text" rows="4"></textarea></div>
+    <input type="hidden" id="er-id">
+    <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="saveEditReview()" data-i18n="btn_save_changes">Guardar cambios</button>
+  </div>
+</div>
+
+<!-- ═══ JAVASCRIPT ═══ -->
+<script>
+/* ─────────────────────────────────────
+   I18N — TRANSLATIONS
+───────────────────────────────────── */
+const i18n = {
+  es: {
+    nav_services:'Servicios', nav_eval:'Evaluación', nav_reviews:'Reseñas', nav_login:'Acceso Terapeuta',
+    hero_eyebrow:'Masajes Terapéuticos · Bienestar Integral',
+    hero_title1:'Tu bienestar comienza', hero_title2:'aquí y ahora',
+    hero_desc:'Terapias personalizadas para tu cuerpo, mente y energía. Encuentra el equilibrio que mereces.',
+    hero_cta1:'Solicitar Evaluación', hero_cta2:'Ver Servicios',
+    srv_eyebrow:'Mis Tratamientos', srv_title:'Terapias para cada ', srv_title_em:'necesidad',
+    about_eyebrow:'Sobre Mí', about_title:'Bienestar con ', about_title_em:'alma y propósito',
+    about_p1:'Soy Briggith Pernía, masajista terapéutica certificada con años de experiencia en bienestar físico, mental y energético. Cada sesión es única y diseñada para ti.',
+    about_p2:'Mi enfoque integra técnicas corporales, faciales y energéticas para ofrecerte una experiencia de relajación, equilibrio y armonía profunda.',
+    stat1:'Años de experiencia', stat2:'Clientes atendidas', stat3:'Terapias disponibles', stat4:'Personalizado',
+    eval_eyebrow:'Evaluación Personalizada', eval_title:'Descubre la terapia ', eval_title_em:'ideal para ti',
+    s1_title:'Datos Personales', s1_sub:'Información básica para personalizar tu experiencia',
+    lbl_name:'Nombre completo', ph_name:'Tu nombre', lbl_age:'Edad', lbl_sex:'Género',
+    opt_select:'Seleccionar', opt_female:'Femenino', opt_male:'Masculino', opt_other:'Otro',
+    lbl_reason:'¿Qué te trae hoy?', ph_reason:'Ej: tensión en espalda, estrés, relajación...',
+    btn_next:'Continuar →', btn_back:'← Atrás', btn_see_result:'Ver mi resultado →',
+    s2_title:'Salud y Bienestar', s2_sub:'Esta información es confidencial y nos ayuda a cuidarte mejor',
+    lbl_conditions:'¿Tienes alguna de estas condiciones? (opcional)',
+    lbl_pregnant:'¿Estás embarazada?', opt_no:'No', opt_yes:'Sí',
+    lbl_trimester:'Trimestre', opt_t1:'Primer trimestre (1–3 meses)', opt_t2:'Segundo trimestre (4–6 meses)', opt_t3:'Tercer trimestre (7–9 meses)',
+    lbl_month:'Mes de embarazo', lbl_high_risk:'¿Es embarazo de alto riesgo?', opt_unsure:'No estoy segura',
+    lbl_allergies:'¿Tienes alergias?', lbl_allergy_type:'¿A qué eres alérgica/o?',
+    lbl_allergy_other:'Especifica si hay algo más', ph_allergy_other:'Ej: látex, menta, eucalipto...',
+    lbl_meds:'¿Tomas algún medicamento?', ph_meds:'Ej: anticoagulantes...',
+    s3_title:'Tu Experiencia Ideal', s3_sub:'Cuéntame qué buscas en tu sesión',
+    lbl_goal:'Objetivo principal', goal_relax:'Relajación profunda', goal_pain:'Alivio de tensiones y dolores',
+    goal_energy:'Equilibrio y bienestar energético', goal_beauty:'Cuidado facial y rejuvenecimiento',
+    goal_lymph:'Drenaje y desinflamación', goal_sport:'Recuperación muscular',
+    lbl_intensity:'Intensidad preferida', int_light:'Suave y delicado', int_medium:'Moderado', int_deep:'Profundo e intenso',
+    lbl_focus:'Zona de atención especial', foc_full:'Cuerpo completo', foc_back:'Espalda y hombros',
+    foc_face:'Cara y cuello', foc_handfeet:'Manos y pies', foc_head:'Cabeza y cuero cabelludo',
+    lbl_prev_massage:'¿Has tenido masajes antes?', prev_often:'Sí, regularmente', prev_few:'Sí, algunas veces', prev_no:'No, es mi primera vez',
+    rev_eyebrow:'Testimonios', rev_title:'Lo que dicen mis ', rev_title_em:'clientes',
+    btn_leave_review:'Dejar mi reseña',
+    footer_sub:'Masajes Terapéuticos & Bienestar Integral',
+    footer_rights:'Todos los derechos reservados · Terapias personalizadas con amor y profesionalismo',
+    login_sub:'Panel Privado de Terapeuta', lbl_user:'Usuario', lbl_pass:'Contraseña',
+    btn_login:'Ingresar al Panel', btn_back_site:'← Volver al sitio',
+    dash_panel:'Panel Terapeuta', dash_main:'Principal', sl_overview:'Resumen', sl_clients:'Clientes',
+    dash_mgmt:'Gestión', sl_sessions:'Sesiones', sl_reviews:'Reseñas', dash_clinical:'Interno', sl_clinical:'Guía de Terapias',
+    sl_ai:'Asistente IA', ds_ai:'Asistente IA', ai_context:'Contexto de consulta',
+    ai_select_client:'Selecciona una clienta (opcional)', ai_no_client:'Consulta general — sin clienta',
+    ai_quick:'Preguntas rápidas:', ai_disclaimer:'* La IA es un apoyo profesional. Usa siempre tu criterio como terapeuta.',
+    lbl_weight:'Peso', lbl_height:'Altura', lbl_feet:'Pies', lbl_inches:'Pulgadas',
+    btn_logout:'Cerrar sesión', ds_overview:'Resumen', btn_new_client:'+ Nueva Clienta',
+    recent_clients:'Clientes Recientes', ds_clients:'Mis Clientes', ph_search:'🔍 Buscar cliente...',
+    ds_sessions:'Historial de Sesiones', btn_new_session:'+ Registrar Sesión',
+    ds_reviews:'Moderación de Reseñas', ds_clinical:'Guía Interna de Terapias',
+    modal_new_client:'Nueva Clienta', lbl_email:'Email / Contacto', lbl_conditions_dash:'Condiciones de salud relevantes',
+    lbl_allergies_dash:'Alergias', lbl_notes:'Notas internas', btn_save_client:'Guardar Clienta',
+    modal_new_session:'Registrar Sesión', lbl_client:'Clienta', lbl_therapy:'Terapia aplicada',
+    lbl_date:'Fecha', lbl_duration:'Duración (min)', lbl_session_notes:'Notas de la sesión',
+    lbl_evolution:'Evolución', prog_good:'Mejora notable', prog_slight:'Leve mejoría', prog_same:'Sin cambios', prog_review:'Requiere seguimiento',
+    lbl_zones:'Zonas con contracturas / tensión', btn_save_session:'Guardar Sesión',
+    modal_edit_session:'Editar Sesión', btn_save_changes:'Guardar cambios',
+    modal_review:'Dejar una reseña', review_sub:'Tu experiencia ayuda a otras personas a conocerme',
+    lbl_your_name:'Tu nombre', lbl_rating:'Calificación', lbl_comment:'Tu comentario', btn_submit_review:'Enviar reseña',
+    modal_edit_review:'Editar Reseña',
+    // result
+    result_title:'¡Tu sesión ideal está lista!', result_greeting:'Hola', result_found:'hemos preparado una experiencia única para ti',
+    result_based:'Basándonos en tus preferencias, recomendamos comenzar con:',
+    result_also:'También te va a encantar:', result_cta:'Agenda tu sesión',
+    result_invite:'Escríbeme para coordinar tu sesión personalizada. ¡Será una experiencia transformadora!',
+    // table headers
+    th_name:'Nombre', th_age:'Edad', th_conditions:'Estado', th_risk:'Nivel', th_sessions:'Sesiones', th_view:'',
+    // therapist detail
+    det_main_rec:'Recomendación Principal', det_safe:'Terapias ideales', det_avoid:'Considerar con cuidado',
+    det_alerts:'Alertas Internas', det_history:'Historial de Sesiones', btn_add_session:'+ Sesión',
+    det_no_sessions:'Sin sesiones registradas', det_no_alerts:'Todo en orden — sin alertas',
+    det_data:'Datos del Perfil', det_conditions:'Condiciones', det_meds:'Medicamentos', det_score:'Nivel de cuidado', det_notes:'Notas',
+    none:'Ninguno/a',
+    // risk labels
+    risk_green:'🟢 Sesión estándar', risk_blue:'🔵 Cuidado especial', risk_yellow:'🟡 Protocolo adaptado', risk_red:'🔴 Protocolo delicado',
+    // clinical guide
+    cg_score_legend:'Escala de nivel de cuidado',
+    cg_green:'🟢 Sin condiciones — todas las terapias disponibles',
+    cg_blue:'🔵 Cuidado leve — adaptar intensidad',
+    cg_yellow:'🟡 Cuidado moderado — protocolo personalizado',
+    cg_red:'🔴 Cuidado alto — consulta previa recomendada',
+    cg_avoid:'Evitar / Adaptar', cg_safe:'Terapias recomendadas', cg_reason:'Consideración interna',
+    // pregnancy
+    preg_t1_note:'Primer trimestre: evitar masaje abdominal y aceites esenciales fuertes',
+    preg_t2_note:'Segundo trimestre: sesión prenatal adaptada, posición lateral',
+    preg_t3_note:'Tercer trimestre: técnicas muy suaves, sin decúbito prono',
+    preg_highrisk:'Embarazo de alto riesgo: solo terapias muy suaves, sin presión en abdomen ni zona lumbar',
+    // allergy note
+    allergy_note:'Alergia registrada — evitar productos señalados',
+  },
+  en: {
+    nav_services:'Services', nav_eval:'Evaluation', nav_reviews:'Reviews', nav_login:'Therapist Login',
+    hero_eyebrow:'Therapeutic Massage · Holistic Wellness',
+    hero_title1:'Your wellness begins', hero_title2:'here and now',
+    hero_desc:'Personalized therapies for your body, mind and energy. Find the balance you deserve.',
+    hero_cta1:'Request Evaluation', hero_cta2:'View Services',
+    srv_eyebrow:'My Treatments', srv_title:'Therapies for every ', srv_title_em:'need',
+    about_eyebrow:'About Me', about_title:'Wellness with ', about_title_em:'soul and purpose',
+    about_p1:"I'm Briggith Pernía, a certified therapeutic massage practitioner with years of experience in physical, mental and energetic wellness. Every session is unique and designed for you.",
+    about_p2:'My approach integrates body, facial and energetic techniques to offer you a deep experience of relaxation, balance and harmony.',
+    stat1:'Years of experience', stat2:'Clients served', stat3:'Available therapies', stat4:'Personalized',
+    eval_eyebrow:'Personalized Evaluation', eval_title:'Discover the ', eval_title_em:'ideal therapy for you',
+    s1_title:'Personal Information', s1_sub:'Basic information to personalize your experience',
+    lbl_name:'Full name', ph_name:'Your name', lbl_age:'Age', lbl_sex:'Gender',
+    opt_select:'Select', opt_female:'Female', opt_male:'Male', opt_other:'Other',
+    lbl_reason:'What brings you today?', ph_reason:'E.g.: back tension, stress, relaxation...',
+    btn_next:'Continue →', btn_back:'← Back', btn_see_result:'See my result →',
+    s2_title:'Health & Wellness', s2_sub:'This information is confidential and helps us take better care of you',
+    lbl_conditions:'Do you have any of these conditions? (optional)',
+    lbl_pregnant:'Are you pregnant?', opt_no:'No', opt_yes:'Yes',
+    lbl_trimester:'Trimester', opt_t1:'First trimester (1–3 months)', opt_t2:'Second trimester (4–6 months)', opt_t3:'Third trimester (7–9 months)',
+    lbl_month:'Month of pregnancy', lbl_high_risk:'Is this a high-risk pregnancy?', opt_unsure:"I'm not sure",
+    lbl_allergies:'Do you have allergies?', lbl_allergy_type:'What are you allergic to?',
+    lbl_allergy_other:'Anything else to specify', ph_allergy_other:'E.g.: latex, mint, eucalyptus...',
+    lbl_meds:'Are you taking any medication?', ph_meds:'E.g.: anticoagulants...',
+    s3_title:'Your Ideal Experience', s3_sub:'Tell me what you are looking for in your session',
+    lbl_goal:'Main goal', goal_relax:'Deep relaxation', goal_pain:'Tension and pain relief',
+    goal_energy:'Energetic balance and wellness', goal_beauty:'Facial care and rejuvenation',
+    goal_lymph:'Drainage and inflammation relief', goal_sport:'Muscle recovery',
+    lbl_intensity:'Preferred intensity', int_light:'Gentle and delicate', int_medium:'Moderate', int_deep:'Deep and intense',
+    lbl_focus:'Area of special attention', foc_full:'Full body', foc_back:'Back and shoulders',
+    foc_face:'Face and neck', foc_handfeet:'Hands and feet', foc_head:'Head and scalp',
+    lbl_prev_massage:'Have you had massages before?', prev_often:'Yes, regularly', prev_few:'Yes, a few times', prev_no:'No, first time',
+    rev_eyebrow:'Testimonials', rev_title:'What my ', rev_title_em:'clients say',
+    btn_leave_review:'Leave my review',
+    footer_sub:'Therapeutic Massage & Holistic Wellness',
+    footer_rights:'All rights reserved · Personalized therapies with love and professionalism',
+    login_sub:'Private Therapist Panel', lbl_user:'Username', lbl_pass:'Password',
+    btn_login:'Enter Panel', btn_back_site:'← Back to site',
+    dash_panel:'Therapist Panel', dash_main:'Main', sl_overview:'Overview', sl_clients:'Clients',
+    dash_mgmt:'Management', sl_sessions:'Sessions', sl_reviews:'Reviews', dash_clinical:'Internal', sl_clinical:'Therapy Guide',
+    sl_ai:'AI Assistant', ds_ai:'AI Assistant', ai_context:'Consultation context',
+    ai_select_client:'Select a client (optional)', ai_no_client:'General consultation — no client',
+    ai_quick:'Quick questions:', ai_disclaimer:'* AI is a professional support tool. Always use your own judgment as a certified therapist.',
+    lbl_weight:'Weight', lbl_height:'Height', lbl_feet:'Feet', lbl_inches:'Inches',
+    btn_logout:'Log out', ds_overview:'Overview', btn_new_client:'+ New Client',
+    recent_clients:'Recent Clients', ds_clients:'My Clients', ph_search:'🔍 Search client...',
+    ds_sessions:'Session History', btn_new_session:'+ Register Session',
+    ds_reviews:'Review Moderation', ds_clinical:'Internal Therapy Guide',
+    modal_new_client:'New Client', lbl_email:'Email / Contact', lbl_conditions_dash:'Relevant health conditions',
+    lbl_allergies_dash:'Allergies', lbl_notes:'Internal notes', btn_save_client:'Save Client',
+    modal_new_session:'Register Session', lbl_client:'Client', lbl_therapy:'Applied therapy',
+    lbl_date:'Date', lbl_duration:'Duration (min)', lbl_session_notes:'Session notes',
+    lbl_evolution:'Progress', prog_good:'Notable improvement', prog_slight:'Slight improvement', prog_same:'No changes', prog_review:'Needs follow-up',
+    lbl_zones:'Areas with tension / contractures', btn_save_session:'Save Session',
+    modal_edit_session:'Edit Session', btn_save_changes:'Save changes',
+    modal_review:'Leave a review', review_sub:'Your experience helps others get to know me',
+    lbl_your_name:'Your name', lbl_rating:'Rating', lbl_comment:'Your comment', btn_submit_review:'Submit review',
+    modal_edit_review:'Edit Review',
+    result_title:'Your ideal session is ready!', result_greeting:'Hello', result_found:'we have prepared a unique experience for you',
+    result_based:'Based on your preferences, we recommend starting with:',
+    result_also:'You will also love:', result_cta:'Book my session',
+    result_invite:'Message me to schedule your personalized session. It will be a transformative experience!',
+    th_name:'Name', th_age:'Age', th_conditions:'Status', th_risk:'Level', th_sessions:'Sessions', th_view:'',
+    det_main_rec:'Main Recommendation', det_safe:'Ideal therapies', det_avoid:'Handle with care',
+    det_alerts:'Internal Alerts', det_history:'Session History', btn_add_session:'+ Session',
+    det_no_sessions:'No sessions registered', det_no_alerts:'All good — no alerts',
+    det_data:'Profile Data', det_conditions:'Conditions', det_meds:'Medications', det_score:'Care level', det_notes:'Notes',
+    none:'None',
+    risk_green:'🟢 Standard session', risk_blue:'🔵 Special care', risk_yellow:'🟡 Adapted protocol', risk_red:'🔴 Delicate protocol',
+    cg_score_legend:'Care level scale',
+    cg_green:'🟢 No conditions — all therapies available',
+    cg_blue:'🔵 Mild care — adapt intensity',
+    cg_yellow:'🟡 Moderate care — personalized protocol',
+    cg_red:'🔴 High care — prior consultation recommended',
+    cg_avoid:'Avoid / Adapt', cg_safe:'Recommended therapies', cg_reason:'Internal consideration',
+    preg_t1_note:'First trimester: avoid abdominal massage and strong essential oils',
+    preg_t2_note:'Second trimester: adapted prenatal session, lateral position',
+    preg_t3_note:'Third trimester: very gentle techniques, no prone position',
+    preg_highrisk:'High-risk pregnancy: only very gentle therapies, no pressure on abdomen or lower back',
+    allergy_note:'Allergy registered — avoid indicated products',
+  }
+};
+
+/* ─────────────────────────────────────
+   SERVICES LIST (AUTHORIZED ONLY)
+───────────────────────────────────── */
+const SERVICES = [
+  { icon:'🌊', es:'Masaje Relajante', en:'Relaxing Massage', desc_es:'Técnicas suaves que liberan tensiones y llevan tu cuerpo a un estado de paz profunda.', desc_en:'Gentle techniques that release tension and bring your body into deep peace.' },
+  { icon:'💆', es:'Masaje Descontracturante', en:'Decontracting Massage', desc_es:'Trabajo específico en zonas de tensión y contracturas para restaurar movilidad y bienestar.', desc_en:'Targeted work on tension and contracture areas to restore mobility and wellbeing.' },
+  { icon:'🔮', es:'Drenaje Linfático Corporal', en:'Body Lymphatic Drainage', desc_es:'Técnica suave que estimula el sistema linfático, reduce la inflamación y favorece la depuración.', desc_en:'Gentle technique that stimulates the lymphatic system, reduces inflammation and promotes cleansing.' },
+  { icon:'💪', es:'Masaje de Tejido Profundo', en:'Deep Tissue Massage', desc_es:'Presión sostenida en capas musculares profundas para liberar adherencias y dolor crónico.', desc_en:'Sustained pressure on deep muscle layers to release adhesions and chronic pain.' },
+  { icon:'🌸', es:'Masajes Suaves (Caricias Terapéuticas)', en:'Gentle Massage (Therapeutic Touch)', desc_es:'Contacto suave y nutritivo para calmar el sistema nervioso y reconectar con tu cuerpo.', desc_en:'Gentle, nourishing touch to calm the nervous system and reconnect with your body.' },
+  { icon:'🤲', es:'Masaje de Manos y Pies', en:'Hand & Foot Massage', desc_es:'Alivio profundo para las extremidades más trabajadas, con técnicas de reflexología y relajación.', desc_en:'Deep relief for hardworking extremities with reflexology and relaxation techniques.' },
+  { icon:'✨', es:'Masaje de Cuello', en:'Neck Massage', desc_es:'Trabajo focalizado en cuello y cervicales para liberar la tensión acumulada y mejorar la movilidad.', desc_en:'Focused work on neck and cervicals to release accumulated tension and improve mobility.' },
+  { icon:'👑', es:'Masaje Craneofacial', en:'Craniofacial Massage', desc_es:'Técnica que combina trabajo craneal y facial para aliviar cefaleas, tensión y estrés acumulado.', desc_en:'Technique combining cranial and facial work to relieve headaches, tension and accumulated stress.' },
+  { icon:'💎', es:'Masaje Facial', en:'Facial Massage', desc_es:'Relajante, drenante o antiedad. Tonifica, ilumina y renueva la piel mientras profundamente te relaja.', desc_en:'Relaxing, draining or anti-aging. Tones, brightens and renews skin while deeply relaxing you.' },
+  { icon:'🌟', es:'Limpieza de Chakras', en:'Chakra Cleansing', desc_es:'Trabajo energético para equilibrar los centros de energía del cuerpo y restaurar el flujo vital.', desc_en:'Energy work to balance the body\'s energy centers and restore vital flow.' },
+  { icon:'🔆', es:'Limpieza Energética', en:'Energy Cleansing', desc_es:'Técnica de depuración energética para liberar bloqueos, tensiones sutiles y cargas acumuladas.', desc_en:'Energetic purification technique to release blockages, subtle tensions and accumulated burdens.' },
+  { icon:'🏠', es:'Limpieza de Espacios', en:'Space Cleansing', desc_es:'Armonización y purificación de espacios físicos para promover ambientes de paz y bienestar.', desc_en:'Harmonization and purification of physical spaces to promote peace and wellbeing environments.' },
+  { icon:'🦋', es:'Masaje Metamórfico', en:'Metamorphic Massage', desc_es:'Técnica suave sobre zonas reflejas de pies, manos y cabeza que activa el potencial de transformación.', desc_en:'Gentle technique on reflex zones of feet, hands and head that activates transformation potential.' },
+];
+
+/* ═══════════════════════════════════════════════════════
+   MOTOR DE DECISIÓN CLÍNICA INTELIGENTE (INTERNO)
+   Filosofía: Seguridad → Adaptación → Oferta
+   Niveles de terapia:
+     'blocked'  = NO aplicar en ningún caso
+     'adapt'    = aplicar CON modificaciones
+     'safe'     = aplicar sin restricciones
+   ═══════════════════════════════════════════════════════ */
+
+// Terapias catalogadas por intensidad real
+const THERAPY_PROFILE = {
+  'masaje_relajante':       { intensity: 2, bodyContact: true  },
+  'masaje_descontracturante':{ intensity: 3, bodyContact: true  },
+  'drenaje_linfatico':      { intensity: 1, bodyContact: true  },
+  'tejido_profundo':        { intensity: 5, bodyContact: true  },
+  'masajes_suaves':         { intensity: 1, bodyContact: true  },
+  'manos_pies':             { intensity: 2, bodyContact: true  },
+  'masaje_cuello':          { intensity: 3, bodyContact: true  },
+  'craneofacial':           { intensity: 1, bodyContact: true  },
+  'masaje_facial':          { intensity: 1, bodyContact: false },
+  'chakras':                { intensity: 0, bodyContact: false },
+  'limpieza_energetica':    { intensity: 0, bodyContact: false },
+  'limpieza_espacios':      { intensity: 0, bodyContact: false },
+  'metamorfico':            { intensity: 1, bodyContact: false },
+};
+
+const RULES = {
+  /* ── EMBARAZO ── */
+  pregnancy_t1: {
+    score: 8,
+    // Para el terapeuta: qué evitar / qué hacer / si se puede adaptar
+    avoid_es: ['Masaje de Tejido Profundo', 'Masaje abdominal directo', 'Aceites esenciales fuertes (alcanfor, romero, salvia)'],
+    avoid_en: ['Deep Tissue Massage', 'Direct abdominal massage', 'Strong essential oils (camphor, rosemary, sage)'],
+    adapt_es: ['Masaje Relajante (sin presión abdominal, duración máx. 30 min)', 'Masaje de Manos y Pies'],
+    adapt_en: ['Relaxing Massage (no abdominal pressure, max 30 min)', 'Hand & Foot Massage'],
+    safe_es:  ['Masajes Suaves', 'Masaje Craneofacial', 'Limpieza de Chakras', 'Masaje Facial'],
+    safe_en:  ['Gentle Massage', 'Craniofacial Massage', 'Chakra Cleansing', 'Facial Massage'],
+    note_es: '1er trimestre: riesgo de aborto espontáneo ante estimulación intensa. Máxima delicadeza.',
+    note_en: '1st trimester: risk of miscarriage with intense stimulation. Maximum care required.',
+    maxIntensity: 1, blocksBody: false,
+  },
+  pregnancy_t2: {
+    score: 5,
+    avoid_es: ['Masaje de Tejido Profundo', 'Decúbito prono', 'Presión directa en abdomen'],
+    avoid_en: ['Deep Tissue Massage', 'Prone position', 'Direct abdominal pressure'],
+    adapt_es: ['Masaje Relajante (posición lateral izquierda)', 'Masaje Descontracturante en espalda alta y hombros'],
+    adapt_en: ['Relaxing Massage (left lateral position)', 'Decontracting on upper back and shoulders'],
+    safe_es:  ['Masaje de Manos y Pies', 'Masaje Craneofacial', 'Masajes Suaves', 'Masaje Facial'],
+    safe_en:  ['Hand & Foot Massage', 'Craniofacial Massage', 'Gentle Massage', 'Facial Massage'],
+    note_es: '2do trimestre: posición lateral obligatoria. Evitar acostarse boca abajo. La mayoría de terapias son aplicables con adaptación.',
+    note_en: '2nd trimester: left lateral position required. Most therapies applicable with adaptation.',
+    maxIntensity: 3, blocksBody: false,
+  },
+  pregnancy_t3: {
+    score: 6,
+    avoid_es: ['Masaje de Tejido Profundo', 'Decúbito prono', 'Presión en zona lumbar baja', 'Puntos de acupresión uterinos (tobillo interno)'],
+    avoid_en: ['Deep Tissue Massage', 'Prone position', 'Lower lumbar pressure', 'Uterine acupressure points (inner ankle)'],
+    adapt_es: ['Masaje Relajante (sentada o lateral)', 'Masaje de Manos y Pies con cuidado en tobillos'],
+    adapt_en: ['Relaxing Massage (seated or lateral)', 'Hand & Foot Massage careful on ankles'],
+    safe_es:  ['Masajes Suaves', 'Masaje Facial', 'Masaje Craneofacial', 'Limpieza Energética'],
+    safe_en:  ['Gentle Massage', 'Facial Massage', 'Craniofacial Massage', 'Energy Cleansing'],
+    note_es: '3er trimestre: evitar decúbito prono absolutamente. Puntos en tobillo interno pueden inducir contracciones.',
+    note_en: '3rd trimester: no prone position. Inner ankle points can induce contractions.',
+    maxIntensity: 2, blocksBody: false,
+  },
+  pregnancy_highrisk: {
+    score: 12,
+    avoid_es: ['Todo masaje corporal de presión media o alta', 'Aceites esenciales', 'Técnicas de drenaje profundo', 'Cualquier presión en abdomen o lumbar'],
+    avoid_en: ['All medium/high pressure body massage', 'Essential oils', 'Deep drainage techniques', 'Any abdominal or lumbar pressure'],
+    adapt_es: [],
+    adapt_en: [],
+    safe_es:  ['Masajes Suaves (contacto mínimo)', 'Limpieza de Chakras', 'Limpieza Energética', 'Masaje Facial', 'Masaje Craneofacial'],
+    safe_en:  ['Gentle Massage (minimal contact)', 'Chakra Cleansing', 'Energy Cleansing', 'Facial Massage', 'Craniofacial Massage'],
+    note_es: 'Embarazo de alto riesgo: derivar a médico antes de cualquier sesión. Solo terapias de contacto mínimo o energéticas.',
+    note_en: 'High-risk pregnancy: refer to physician before any session. Only minimal-contact or energetic therapies.',
+    maxIntensity: 1, blocksBody: false,
+  },
+
+  /* ── CONDICIONES DE ALTO RIESGO ── */
+  thrombosis: {
+    score: 12,
+    avoid_es: ['Masaje corporal completo', 'Masaje de Tejido Profundo', 'Drenaje Linfático', 'Presión en extremidades inferiores', 'Masaje Descontracturante'],
+    avoid_en: ['Full body massage', 'Deep Tissue', 'Lymphatic Drainage', 'Lower limb pressure', 'Decontracting Massage'],
+    adapt_es: [],
+    adapt_en: [],
+    safe_es:  ['Masaje Facial', 'Masaje Craneofacial', 'Limpieza de Chakras', 'Limpieza Energética'],
+    safe_en:  ['Facial Massage', 'Craniofacial Massage', 'Chakra Cleansing', 'Energy Cleansing'],
+    note_es: '⚠️ ALTO RIESGO: el masaje puede desplazar un trombo y provocar embolia pulmonar. Solo trabajo no invasivo. Derivar a médico.',
+    note_en: '⚠️ HIGH RISK: massage can dislodge a clot causing pulmonary embolism. Non-invasive work only. Refer to physician.',
+    maxIntensity: 0, blocksBody: true,
+  },
+  cancer: {
+    score: 10,
+    avoid_es: ['Masaje sobre zona irradiada o tumoral', 'Drenaje Linfático intenso sin protocolo oncológico', 'Masaje de Tejido Profundo'],
+    avoid_en: ['Massage over irradiated or tumor area', 'Intense Lymphatic Drainage without oncology protocol', 'Deep Tissue Massage'],
+    adapt_es: ['Masaje Relajante suave (evitando zona afectada)', 'Masajes Suaves en zonas sanas'],
+    adapt_en: ['Gentle Relaxing Massage (avoiding affected area)', 'Gentle Massage on healthy areas'],
+    safe_es:  ['Masajes Suaves', 'Masaje Facial', 'Masaje Craneofacial', 'Limpieza de Chakras', 'Limpieza Energética'],
+    safe_en:  ['Gentle Massage', 'Facial Massage', 'Craniofacial Massage', 'Chakra Cleansing', 'Energy Cleansing'],
+    note_es: 'Paciente oncológico: evitar zona de tratamiento. El masaje suave puede mejorar bienestar emocional. Ideal consultar con oncólogo.',
+    note_en: 'Oncology patient: avoid treatment area. Gentle massage can improve emotional wellbeing. Consult oncologist ideally.',
+    maxIntensity: 2, blocksBody: false,
+  },
+  recent_surgery: {
+    score: 8,
+    avoid_es: ['Masaje directo sobre zona operada', 'Presión sobre cicatriz reciente (<6 semanas)', 'Movilización forzada de la zona'],
+    avoid_en: ['Direct massage on operated area', 'Pressure on recent scar (<6 weeks)', 'Forced mobilization of area'],
+    adapt_es: ['Masaje Relajante en zonas distales', 'Masaje Descontracturante en zonas alejadas de la cirugía'],
+    adapt_en: ['Relaxing Massage on distal areas', 'Decontracting Massage on areas away from surgery'],
+    safe_es:  ['Masaje Facial', 'Masaje Craneofacial', 'Masaje de Manos y Pies (si cirugía no fue en extremidades)', 'Limpieza de Chakras'],
+    safe_en:  ['Facial Massage', 'Craniofacial Massage', 'Hand & Foot Massage (if surgery not on limbs)', 'Chakra Cleansing'],
+    note_es: 'Cirugía reciente: la cicatriz requiere protección. El masaje prematuro puede romper adhesiones. Respetar zona operada.',
+    note_en: 'Recent surgery: scar needs protection. Premature massage can break adhesions. Respect operated area.',
+    maxIntensity: 3, blocksBody: false,
+  },
+
+  /* ── CONDICIONES VASCULARES / CARDÍACAS ── */
+  heart: {
+    score: 8,
+    avoid_es: ['Masaje de Tejido Profundo', 'Técnicas muy estimulantes', 'Sesiones de más de 45 minutos sin pausa', 'Percusión intensa'],
+    avoid_en: ['Deep Tissue Massage', 'Very stimulating techniques', 'Sessions over 45 min without break', 'Intense percussion'],
+    adapt_es: ['Masaje Relajante (sesión 30–45 min máx)', 'Drenaje Linfático suave'],
+    adapt_en: ['Relaxing Massage (30–45 min max session)', 'Gentle Lymphatic Drainage'],
+    safe_es:  ['Masajes Suaves', 'Masaje Facial', 'Masaje Craneofacial', 'Limpieza de Chakras'],
+    safe_en:  ['Gentle Massage', 'Facial Massage', 'Craniofacial Massage', 'Chakra Cleansing'],
+    note_es: 'Condición cardíaca: la estimulación excesiva puede alterar el ritmo. Sesiones cortas y tranquilas. Monitorear respuesta.',
+    note_en: 'Cardiac condition: excessive stimulation can alter rhythm. Short calm sessions. Monitor response.',
+    maxIntensity: 2, blocksBody: false,
+  },
+  anticoagulants: {
+    score: 8,
+    avoid_es: ['Masaje de Tejido Profundo', 'Presión profunda sostenida', 'Percusión (tapotement)', 'Fricción intensa'],
+    avoid_en: ['Deep Tissue Massage', 'Sustained deep pressure', 'Tapotement / percussion', 'Intense friction'],
+    adapt_es: ['Masaje Relajante (presión muy ligera)', 'Drenaje Linfático suave sin presión', 'Masaje Descontracturante superficial'],
+    adapt_en: ['Relaxing Massage (very light pressure)', 'Gentle Lymphatic Drainage without pressure', 'Superficial Decontracting Massage'],
+    safe_es:  ['Masajes Suaves', 'Masaje Facial', 'Masaje Craneofacial', 'Masaje de Manos y Pies (sin presión fuerte)'],
+    safe_en:  ['Gentle Massage', 'Facial Massage', 'Craniofacial Massage', 'Hand & Foot Massage (no strong pressure)'],
+    note_es: 'Anticoagulantes: alto riesgo de hematomas internos ante presión. Solo técnicas de superficie. Verificar si hay marcas de golpes.',
+    note_en: 'Anticoagulants: high risk of internal bruising from pressure. Surface techniques only. Check for bruising.',
+    maxIntensity: 1, blocksBody: false,
+  },
+
+  /* ── CONDICIONES MÚSCULO-ESQUELÉTICAS ── */
+  osteoporosis: {
+    score: 6,
+    avoid_es: ['Masaje de Tejido Profundo', 'Presión fuerte en columna o costillas', 'Manipulación articular', 'Percusión'],
+    avoid_en: ['Deep Tissue Massage', 'Strong pressure on spine or ribs', 'Joint manipulation', 'Percussion'],
+    adapt_es: ['Masaje Relajante (presión muy suave)', 'Masaje Descontracturante superficial en hombros', 'Drenaje Linfático'],
+    adapt_en: ['Relaxing Massage (very gentle pressure)', 'Superficial Decontracting on shoulders', 'Lymphatic Drainage'],
+    safe_es:  ['Masajes Suaves', 'Masaje Facial', 'Masaje Craneofacial', 'Masaje de Manos y Pies', 'Limpieza de Chakras'],
+    safe_en:  ['Gentle Massage', 'Facial Massage', 'Craniofacial Massage', 'Hand & Foot Massage', 'Chakra Cleansing'],
+    note_es: 'Osteoporosis: fragilidad ósea real. Una presión inadecuada puede fracturar una costilla o vértebra. Solo superficial.',
+    note_en: 'Osteoporosis: real bone fragility. Inadequate pressure can fracture a rib or vertebra. Superficial only.',
+    maxIntensity: 2, blocksBody: false,
+  },
+  fibromyalgia: {
+    score: 5,
+    avoid_es: ['Presión intensa en puntos gatillo', 'Masaje de Tejido Profundo', 'Sesiones largas sin pausa'],
+    avoid_en: ['Intense trigger point pressure', 'Deep Tissue Massage', 'Long sessions without break'],
+    adapt_es: ['Masaje Relajante (extremadamente suave)', 'Masaje Descontracturante en zona específica con mínima presión'],
+    adapt_en: ['Relaxing Massage (extremely gentle)', 'Decontracting Massage on specific area with minimal pressure'],
+    safe_es:  ['Masajes Suaves', 'Masaje Craneofacial', 'Limpieza de Chakras', 'Masaje Facial'],
+    safe_en:  ['Gentle Massage', 'Craniofacial Massage', 'Chakra Cleansing', 'Facial Massage'],
+    note_es: 'Fibromialgia: sistema nervioso central hipersensible. La presión normal puede sentirse como dolor intenso. Máxima suavidad.',
+    note_en: 'Fibromyalgia: hypersensitive central nervous system. Normal pressure can feel like intense pain. Maximum gentleness.',
+    maxIntensity: 2, blocksBody: false,
+  },
+
+  /* ── CONDICIONES METABÓLICAS / CIRCULATORIAS ── */
+  diabetes: {
+    score: 3,
+    avoid_es: ['Calor excesivo en extremidades', 'Presión intensa en pies con neuropatía', 'Cremas con azúcares o irritantes'],
+    avoid_en: ['Excessive heat on extremities', 'Intense pressure on neuropathic feet', 'Creams with sugars or irritants'],
+    adapt_es: ['Masaje de Manos y Pies (verificar sensibilidad)', 'Masaje Relajante con cuidado en extremidades'],
+    adapt_en: ['Hand & Foot Massage (check sensitivity)', 'Relaxing Massage careful on extremities'],
+    safe_es:  ['Masaje Relajante', 'Masaje Craneofacial', 'Masaje Facial', 'Masaje Descontracturante (zona sin neuropatía)'],
+    safe_en:  ['Relaxing Massage', 'Craniofacial Massage', 'Facial Massage', 'Decontracting Massage (area without neuropathy)'],
+    note_es: 'Diabetes: la neuropatía periférica puede reducir la sensación de dolor. Verificar temperatura y presión en pies.',
+    note_en: 'Diabetes: peripheral neuropathy can reduce pain sensation. Check temperature and pressure on feet.',
+    maxIntensity: 4, blocksBody: false,
+  },
+  hypertension: {
+    score: 4,
+    avoid_es: ['Presión intensa en cuello y nuca', 'Técnicas muy estimulantes', 'Posición invertida'],
+    avoid_en: ['Intense neck/nape pressure', 'Very stimulating techniques', 'Inverted position'],
+    adapt_es: ['Masaje Relajante con especial cuidado en zona cervical', 'Masaje Descontracturante en espalda (sin cervicales)'],
+    adapt_en: ['Relaxing Massage with care on cervical area', 'Decontracting Massage on back (avoid cervicals)'],
+    safe_es:  ['Masaje Relajante', 'Drenaje Linfático suave', 'Masaje Facial', 'Masaje de Manos y Pies'],
+    safe_en:  ['Relaxing Massage', 'Gentle Lymphatic Drainage', 'Facial Massage', 'Hand & Foot Massage'],
+    note_es: 'HTA: la manipulación cervical puede provocar cambios bruscos de presión. Evitar cuello alto, trabajar espalda media y baja.',
+    note_en: 'Hypertension: cervical manipulation can cause sudden pressure changes. Avoid upper neck, work mid and lower back.',
+    maxIntensity: 4, blocksBody: false,
+  },
+  varicose: {
+    score: 3,
+    avoid_es: ['Presión directa sobre variz', 'Masaje profundo en piernas', 'Fricción intensa en zona varicosa'],
+    avoid_en: ['Direct pressure on varicose vein', 'Deep leg massage', 'Intense friction on varicose area'],
+    adapt_es: ['Drenaje Linfático suave (dirección centrípeta)', 'Masaje Relajante evitando zonas varicosas'],
+    adapt_en: ['Gentle Lymphatic Drainage (centripetal direction)', 'Relaxing Massage avoiding varicose areas'],
+    safe_es:  ['Masaje Facial', 'Masaje Craneofacial', 'Masaje de Manos', 'Limpieza de Chakras'],
+    safe_en:  ['Facial Massage', 'Craniofacial Massage', 'Hand Massage', 'Chakra Cleansing'],
+    note_es: 'Várices: presión directa puede romper venas dilatadas o generar trombos. Solo drenaje suave y centripeto.',
+    note_en: 'Varicose veins: direct pressure can rupture dilated veins or cause clots. Gentle centripetal drainage only.',
+    maxIntensity: 3, blocksBody: false,
+  },
+  skin_issues: {
+    score: 3,
+    avoid_es: ['Contacto directo sobre lesión activa', 'Fricción sobre herida o psoriasis', 'Aceites o cremas sobre zona afectada'],
+    avoid_en: ['Direct contact on active lesion', 'Friction over wound or psoriasis', 'Oils or creams on affected area'],
+    adapt_es: ['Masaje en zonas sanas alejadas de la lesión', 'Trabajo en espalda alta si lesión es en piernas'],
+    adapt_en: ['Massage on healthy areas away from lesion', 'Upper back work if lesion is on legs'],
+    safe_es:  ['Masaje Craneofacial', 'Masaje Facial (si piel facial está sana)', 'Limpieza de Chakras'],
+    safe_en:  ['Craniofacial Massage', 'Facial Massage (if facial skin is healthy)', 'Chakra Cleansing'],
+    note_es: 'Lesión cutánea: masaje sobre zona afectada puede empeorar la herida o generar infección. Trabajo exclusivamente en zonas sanas.',
+    note_en: 'Skin lesion: massage on affected area can worsen wound or cause infection. Work exclusively on healthy areas.',
+    maxIntensity: 4, blocksBody: false,
+  },
+
+  /* ── ALERGIAS ── */
+  allergy_oils: {
+    score: 3,
+    avoid_es: ['Aceites esenciales', 'Cremas con fragancia', 'Aromaterapia con aceites'],
+    avoid_en: ['Essential oils', 'Scented creams', 'Aromatherapy with oils'],
+    adapt_es: ['Cualquier masaje usando gel neutro o sin producto'],
+    adapt_en: ['Any massage using neutral gel or no product'],
+    safe_es:  ['Masaje seco o con gel neutro', 'Técnicas energéticas sin contacto con piel (chakras)'],
+    safe_en:  ['Dry or neutral gel massage', 'Energy techniques without skin contact (chakras)'],
+    note_es: 'Alergia a aceites: usar solo productos neutros certificados. Verificar ingredientes de todo producto aplicado.',
+    note_en: 'Oil allergy: use only certified neutral products. Verify ingredients of every product applied.',
+    maxIntensity: 5, blocksBody: false,
+  },
+  allergy_creams: {
+    score: 3,
+    avoid_es: ['Cremas con colorantes, fragancia o conservantes', 'Lociones perfumadas'],
+    avoid_en: ['Creams with dyes, fragrance or preservatives', 'Scented lotions'],
+    adapt_es: ['Masaje con aceite puro (vegetal, sin fragancia)', 'Masaje seco'],
+    adapt_en: ['Massage with pure vegetable oil (fragrance-free)', 'Dry massage'],
+    safe_es:  ['Masaje seco', 'Técnicas energéticas'],
+    safe_en:  ['Dry massage', 'Energy techniques'],
+    note_es: 'Sensibilidad a cremas: preguntar ingredientes específicos. El aceite vegetal puro suele tolerarse.',
+    note_en: 'Cream sensitivity: ask about specific ingredients. Pure vegetable oil is usually tolerated.',
+    maxIntensity: 5, blocksBody: false,
+  },
+  allergy_aromas: {
+    score: 2,
+    avoid_es: ['Difusor de aromas durante sesión', 'Velas aromáticas', 'Incienso'],
+    avoid_en: ['Aroma diffuser during session', 'Scented candles', 'Incense'],
+    adapt_es: ['Sesión con ventilación abierta y sin difusor'],
+    adapt_en: ['Session with open ventilation and no diffuser'],
+    safe_es:  ['Cualquier terapia — solo adaptar el ambiente'],
+    safe_en:  ['Any therapy — only adapt the environment'],
+    note_es: 'Sensibilidad aromática: apagar difusor, ventilar sala, evitar velas perfumadas durante la sesión.',
+    note_en: 'Aromatic sensitivity: turn off diffuser, ventilate room, avoid scented candles during session.',
+    maxIntensity: 5, blocksBody: false,
+  },
+};
+
+// Mapa de condiciones para selección pública (sin términos clínicos crudos)
+const CONDITIONS_LIST = [
+  { key:'thrombosis',    es:'Trombosis / coágulos en sangre', en:'Thrombosis / blood clots' },
+  { key:'hypertension',  es:'Hipertensión (presión alta)',    en:'Hypertension (high blood pressure)' },
+  { key:'heart',         es:'Problemas cardíacos',            en:'Cardiac issues' },
+  { key:'diabetes',      es:'Diabetes',                       en:'Diabetes' },
+  { key:'osteoporosis',  es:'Osteoporosis',                   en:'Osteoporosis' },
+  { key:'cancer',        es:'Cáncer / tratamiento oncológico',en:'Cancer / oncology treatment' },
+  { key:'recent_surgery',es:'Cirugía reciente (menos de 6 meses)', en:'Recent surgery (less than 6 months)' },
+  { key:'anticoagulants',es:'Tomo anticoagulantes (Warfarina, Sintrom…)', en:'Taking anticoagulants (Warfarin, Sintrom…)' },
+  { key:'fibromyalgia',  es:'Fibromialgia',                   en:'Fibromyalgia' },
+  { key:'varicose',      es:'Várices',                        en:'Varicose veins' },
+  { key:'skin_issues',   es:'Lesiones en piel / heridas abiertas', en:'Skin lesions / open wounds' },
+];
+
+/* ═══════════════════════════════════════════════════════
+   FUNCIÓN DE EVALUACIÓN MEJORADA
+   Retorna: { score, flags, allergyFlags, level,
+              blocksAllBody, combinedRisk, riskReasons }
+   ═══════════════════════════════════════════════════════ */
+
+const ALLERGY_TYPES = [
+  { key:'allergy_oils',   es:'Aceites esenciales',      en:'Essential oils' },
+  { key:'allergy_creams', es:'Cremas / lociones',        en:'Creams / lotions' },
+  { key:'allergy_aromas', es:'Aromas / fragancias',      en:'Aromas / fragrances' },
+  { key:'other',          es:'Otros',                    en:'Other' },
+];
+
+const BODY_ZONES = [
+  { id:'skull',     es:'Cráneo',           en:'Skull' },         { id:'neck',      es:'Cuello',          en:'Neck' },
+  { id:'shoulder_l',es:'Hombro Izq.',      en:'L. Shoulder' },   { id:'shoulder_r',es:'Hombro Der.',      en:'R. Shoulder' },
+  { id:'upper_back',es:'Espalda Alta',     en:'Upper Back' },    { id:'mid_back',  es:'Espalda Media',    en:'Mid Back' },
+  { id:'lower_back',es:'Espalda Baja',     en:'Lower Back' },    { id:'chest',     es:'Pecho/Frente',     en:'Chest/Front' },
+  { id:'abdomen',   es:'Abdomen',          en:'Abdomen' },       { id:'glutes',    es:'Glúteos',          en:'Glutes' },
+  { id:'thigh_l',   es:'Muslo Izq.',       en:'L. Thigh' },      { id:'thigh_r',   es:'Muslo Der.',       en:'R. Thigh' },
+  { id:'calf_l',    es:'Pantorrilla Izq.', en:'L. Calf' },       { id:'calf_r',    es:'Pantorrilla Der.', en:'R. Calf' },
+  { id:'foot_l',    es:'Pie Izq.',         en:'L. Foot' },       { id:'foot_r',    es:'Pie Der.',         en:'R. Foot' },
+  { id:'arm_l',     es:'Brazo Izq.',       en:'L. Arm' },        { id:'arm_r',     es:'Brazo Der.',       en:'R. Arm' },
+];
+
+/* ══════════════════════════════════════════════
+   SMART ASSESS — evaluación real multicapa
+   ══════════════════════════════════════════════ */
+function assess(conditions, pregnant, trimester, highRisk, allergyKeys, meds) {
+  let score = 0;
+  let flags = [...conditions];
+  let allergyFlags = [...allergyKeys];
+
+  // ── 1. Embarazo
+  if (pregnant === 'yes') {
+    if (highRisk === 'yes' || highRisk === 'unsure') {
+      flags.push('pregnancy_highrisk');
+      score += RULES['pregnancy_highrisk'].score;
+    } else {
+      const pk = 'pregnancy_t' + (trimester || '1');
+      flags.push(pk);
+      score += (RULES[pk]?.score || 5);
+    }
+  }
+
+  // ── 2. Condiciones base
+  conditions.forEach(c => { if (RULES[c]) score += RULES[c].score; });
+
+  // ── 3. Alergias
+  allergyKeys.filter(k => k !== 'other').forEach(k => { if (RULES[k]) score += RULES[k].score; });
+
+  // ── 4. Medicamentos (detección automática)
+  const medsLow = (meds || '').toLowerCase();
+  if (medsLow.match(/anticoagulante|warfarin|heparin|sintrom|xarelto|rivaroxaban|apixaban|edoxaban/) && !flags.includes('anticoagulants')) {
+    flags.push('anticoagulants'); score += RULES['anticoagulants'].score;
+  }
+  if (medsLow.match(/antihipertensivo|enalapril|losartan|amlodipino|captopril|valsartan|ramipril/) && !flags.includes('hypertension')) {
+    flags.push('hypertension'); score += RULES['hypertension'].score;
+  }
+  if (medsLow.match(/corticoide|prednisona|dexametasona|cortisona/) && !flags.includes('osteoporosis')) {
+    // Corticoides reducen densidad ósea — agregar precaución
+    score += 3;
+  }
+
+  // ── 5. Combinación de riesgos (potenciación)
+  //    Si hay ≥2 factores de alto riesgo (score individual ≥6), se potencia el riesgo total
+  const highRiskFlags = flags.filter(f => RULES[f] && RULES[f].score >= 6);
+  if (highRiskFlags.length >= 2) score = Math.round(score * 1.3); // +30% por combinación
+
+  // ── 6. Intensidad máxima permitida (la más restrictiva gana)
+  let maxAllowed = 5;
+  let blocksAllBody = false;
+  flags.forEach(f => {
+    if (!RULES[f]) return;
+    if (RULES[f].maxIntensity < maxAllowed) maxAllowed = RULES[f].maxIntensity;
+    if (RULES[f].blocksBody) blocksAllBody = true;
+  });
+
+  // ── 7. Nivel de riesgo
+  let level;
+  if (score === 0)       level = 'green';   // libre
+  else if (score <= 5)   level = 'blue';    // precaución leve
+  else if (score <= 14)  level = 'yellow';  // protocolo adaptado
+  else                   level = 'red';     // delicado / solo suave
+
+  // ── 8. Razones resumidas para el terapeuta
+  const riskReasons = flags.filter(f => RULES[f]).map(f =>
+    lang === 'es' ? RULES[f].note_es : RULES[f].note_en
+  );
+
+  return { score, flags, allergyFlags, level, maxAllowed, blocksAllBody, riskReasons };
+}
+
+/* ══════════════════════════════════════════════
+   SMART RECOMMENDATIONS — lógica de 3 niveles
+   ✔ aplicar | ⚠ adaptar | ❌ no aplicar
+   ══════════════════════════════════════════════ */
+function getRecommendations(assessment, requestedGoal) {
+  const { flags, allergyFlags, level, maxAllowed, blocksAllBody } = assessment;
+  const isPregnantHighRisk = flags.includes('pregnancy_highrisk');
+  const isT1 = flags.includes('pregnancy_t1');
+  const isT2 = flags.includes('pregnancy_t2');
+  const isT3 = flags.includes('pregnancy_t3');
+  const isPregnant = isPregnantHighRisk || isT1 || isT2 || isT3;
+  const hasThrombosis = flags.includes('thrombosis');
+  const hasCancer    = flags.includes('cancer');
+
+  // ── Colectar todo lo que se debe evitar / adaptar / es seguro
+  const allAvoid  = new Set();
+  const allAdapt  = new Set();
+  const allSafe   = new Set();
+
+  flags.forEach(f => {
+    const rule = RULES[f]; if (!rule) return;
+    (lang==='es' ? rule.avoid_es : rule.avoid_en).forEach(x => allAvoid.add(x));
+    (lang==='es' ? rule.adapt_es : rule.adapt_en).forEach(x => allAdapt.add(x));
+    (lang==='es' ? rule.safe_es  : rule.safe_en ).forEach(x => allSafe.add(x));
+  });
+
+  // Quitar de "safe" todo lo que aparezca en "avoid"
+  allAvoid.forEach(a => allSafe.delete(a));
+
+  // ── Determinar TERAPIA PRINCIPAL (lógica de árbol de decisión)
+  let mainES, mainEN, noteES, noteEN, adaptationTagES = '', adaptationTagEN = '';
+
+  // CASO: solicita tejido profundo
+  const wantsDeep = requestedGoal === 'sport' || requestedGoal === 'pain';
+
+  if (blocksAllBody || hasThrombosis) {
+    // BLOQUEO TOTAL de masaje corporal
+    mainES = '💎 Masaje Facial';
+    mainEN = '💎 Facial Massage';
+    noteES = 'Sesión facial completa — la opción perfecta y completamente segura para ti en este momento';
+    noteEN = 'Full facial session — the perfect and completely safe option for you right now';
+
+  } else if (isPregnantHighRisk) {
+    mainES = '🌸 Masajes Suaves (Caricias Terapéuticas)';
+    mainEN = '🌸 Gentle Massage (Therapeutic Touch)';
+    noteES = 'Sesión de contacto muy suave, especialmente adaptada para tu bienestar y seguridad';
+    noteEN = 'Very gentle contact session, specially adapted for your wellbeing and safety';
+
+  } else if (isT1) {
+    mainES = '🌸 Masajes Suaves (Caricias Terapéuticas)';
+    mainEN = '🌸 Gentle Massage (Therapeutic Touch)';
+    noteES = 'Sesión prenatal suave — primer trimestre, máxima delicadeza';
+    noteEN = 'Gentle prenatal session — first trimester, maximum care';
+
+  } else if (isT2) {
+    mainES = '🌊 Masaje Relajante (posición lateral)';
+    mainEN = '🌊 Relaxing Massage (lateral position)';
+    noteES = 'Sesión prenatal adaptada — posición cómoda y segura para ti y tu bebé';
+    noteEN = 'Adapted prenatal session — comfortable and safe position for you and your baby';
+
+  } else if (isT3) {
+    mainES = '🌸 Masajes Suaves (Caricias Terapéuticas)';
+    mainEN = '🌸 Gentle Massage (Therapeutic Touch)';
+    noteES = 'Sesión prenatal final — técnicas muy suaves para que descanses plenamente';
+    noteEN = 'Final prenatal session — very gentle techniques for complete rest';
+
+  } else if (hasCancer) {
+    mainES = '🌸 Masajes Suaves (Caricias Terapéuticas)';
+    mainEN = '🌸 Gentle Massage (Therapeutic Touch)';
+    noteES = 'Sesión de bienestar gentil y nutritiva, adaptada a tu estado actual con mucho amor';
+    noteEN = 'Gentle and nourishing wellness session, lovingly adapted to your current state';
+
+  } else if (wantsDeep && maxAllowed >= 4) {
+    // CASO INTERMEDIO: pide profundo, puede con adaptación
+    mainES = '💆 Masaje de Tejido Profundo (presión moderada adaptada)';
+    mainEN = '💆 Deep Tissue Massage (adapted moderate pressure)';
+    noteES = 'Aplicaremos la técnica de tejido profundo adaptando la presión a tu perfil de salud';
+    noteEN = 'We will apply the deep tissue technique adapting pressure to your health profile';
+    adaptationTagES = '⚠ Con adaptación de intensidad';
+    adaptationTagEN = '⚠ With intensity adaptation';
+
+  } else if (wantsDeep && maxAllowed < 4) {
+    // CASO RIESGO: pide profundo, no es apto
+    mainES = '🌊 Masaje Relajante Personalizado';
+    mainEN = '🌊 Personalized Relaxing Massage';
+    noteES = 'Para tu seguridad, elegimos una terapia suave y personalizada que te brindará alivio sin riesgo';
+    noteEN = 'For your safety, we chose a gentle personalized therapy that will provide relief without risk';
+
+  } else if (level === 'green') {
+    mainES = '💆 Masaje Descontracturante';
+    mainEN = '💆 Decontracting Massage';
+    noteES = 'Sesión completa — tu perfil de salud es ideal para cualquier técnica';
+    noteEN = 'Complete session — your health profile is ideal for any technique';
+
+  } else if (level === 'blue') {
+    mainES = '🌊 Masaje Relajante';
+    mainEN = '🌊 Relaxing Massage';
+    noteES = 'Sesión relajante adaptada con atención especial a tu bienestar';
+    noteEN = 'Adapted relaxing session with special attention to your wellbeing';
+
+  } else {
+    // yellow / red
+    mainES = '🌸 Masajes Suaves (Caricias Terapéuticas)';
+    mainEN = '🌸 Gentle Massage (Therapeutic Touch)';
+    noteES = 'Para tu mayor confort, recomendamos opciones suaves y personalizadas que se adaptan perfectamente a ti';
+    noteEN = 'For your greatest comfort, we recommend gentle personalized options that adapt perfectly to you';
+  }
+
+  // ── Extras para cliente (siempre positivos, sin restricciones visibles)
+  let extras_es, extras_en;
+  if (blocksAllBody || hasThrombosis) {
+    extras_es = ['✨ Masaje Craneofacial', '🌟 Limpieza de Chakras', '🔆 Limpieza Energética', '🦋 Masaje Metamórfico'];
+    extras_en = ['✨ Craniofacial Massage', '🌟 Chakra Cleansing', '🔆 Energy Cleansing', '🦋 Metamorphic Massage'];
+  } else if (isPregnant) {
+    extras_es = ['🤲 Masaje de Manos y Pies', '💎 Masaje Facial', '✨ Masaje Craneofacial'];
+    extras_en = ['🤲 Hand & Foot Massage', '💎 Facial Massage', '✨ Craniofacial Massage'];
+  } else if (level === 'green') {
+    extras_es = ['🔮 Drenaje Linfático Corporal', '💎 Masaje Facial', '🦋 Masaje Metamórfico', '✨ Masaje Craneofacial'];
+    extras_en = ['🔮 Body Lymphatic Drainage', '💎 Facial Massage', '🦋 Metamorphic Massage', '✨ Craniofacial Massage'];
+  } else {
+    extras_es = ['✨ Masaje Craneofacial', '🤲 Masaje de Manos y Pies', '💎 Masaje Facial'];
+    extras_en = ['✨ Craniofacial Massage', '🤲 Hand & Foot Massage', '💎 Facial Massage'];
+  }
+
+  return {
+    mainES, mainEN, noteES, noteEN,
+    adaptationTagES, adaptationTagEN,
+    extras_es, extras_en,
+    avoidList: [...allAvoid],
+    adaptList: [...allAdapt],
+    safeList:  [...allSafe],
+  };
+}
+
+/* ═══════════════════════════════════════════════════
+   BASE DE DATOS LOCAL PERSISTENTE (localStorage)
+   Los datos se guardan automáticamente en el navegador.
+   Sobreviven al cerrar y reabrir el archivo/sitio.
+   ═══════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════
+   FIREBASE — BASE DE DATOS REAL EN LA NUBE
+   Los datos se guardan en Google Firestore.
+   Accesibles desde cualquier dispositivo, siempre.
+   ═══════════════════════════════════════════════════ */
+
+// SDK de Firebase (versión CDN compatible)
+// ⚠️  Las claves reales se cargan desde config.js (NO subir config.js a GitHub).
+//     Copia config.example.js → config.js y rellena tus valores.
+const FB_CONFIG = (window._BP_CONFIG && window._BP_CONFIG.firebase)
+  ? window._BP_CONFIG.firebase
+  : {
+      apiKey:            "REEMPLAZA_CON_TU_FIREBASE_API_KEY",
+      authDomain:        "REEMPLAZA_CON_TU_AUTH_DOMAIN",
+      projectId:         "REEMPLAZA_CON_TU_PROJECT_ID",
+      storageBucket:     "REEMPLAZA_CON_TU_STORAGE_BUCKET",
+      messagingSenderId: "REEMPLAZA_CON_TU_SENDER_ID",
+      appId:             "REEMPLAZA_CON_TU_APP_ID"
+    };
+
+let db = null;
+let fbLoaded = false;
+
+// Cargar Firebase dinámicamente
+function loadFirebase() {
+  return new Promise((resolve) => {
+    if (fbLoaded) { resolve(); return; }
+    // Importar Firebase via CDN compat version
+    const s1 = document.createElement('script');
+    s1.src = 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js';
+    s1.onload = () => {
+      const s2 = document.createElement('script');
+      s2.src = 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js';
+      s2.onload = () => {
+        firebase.initializeApp(FB_CONFIG);
+        db = firebase.firestore();
+        fbLoaded = true;
+        resolve();
+      };
+      document.head.appendChild(s2);
+    };
+    document.head.appendChild(s1);
+  });
+}
+
+// Mostrar indicador de carga
+function showDBStatus(msg, ok=true) {
+  const el = document.getElementById('db-status');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = ok ? 'var(--green)' : 'var(--red)';
+  el.style.display = 'block';
+  if (ok) setTimeout(() => el.style.display='none', 3000);
+}
+
+/* ── CARGAR datos desde Firebase ── */
+async function loadDB() {
+  try {
+    showDBStatus(lang==='es'?'⏳ Conectando...':'⏳ Connecting...', true);
+    await loadFirebase();
+
+    // Cargar clientes
+    const clientsSnap = await db.collection('clients').orderBy('createdAt','desc').get();
+    appData.clients = clientsSnap.docs.map(d => ({ ...d.data(), _fbId: d.id }));
+
+    // Cargar reseñas
+    const reviewsSnap = await db.collection('reviews').orderBy('date','desc').get();
+    appData.reviews = reviewsSnap.docs.map(d => ({ ...d.data(), _fbId: d.id }));
+
+    // Si no hay reseñas, cargar las de ejemplo
+    if (appData.reviews.length === 0) {
+      const defaults = [
+        { id:Date.now()+1, name:'Laura M.', stars:5, text:'Increíble experiencia. Me sentí completamente renovada. Briggith tiene manos mágicas.', approved:true, date:'2025-05-15' },
+        { id:Date.now()+2, name:'Sarah K.', stars:5, text:'Best therapeutic massage I have ever had. So professional, intuitive and caring.', approved:true, date:'2025-05-20' },
+        { id:Date.now()+3, name:'Carmen D.', stars:5, text:'Notó exactamente donde tenía tensión sin que yo dijera nada. Totalmente recomendable.', approved:true, date:'2025-05-22' },
+      ];
+      for (const r of defaults) {
+        await db.collection('reviews').add(r);
+      }
+      appData.reviews = defaults;
+    }
+
+    showDBStatus(lang==='es'?'✅ Conectada a la nube':'✅ Connected to cloud', true);
+    renderDashboard();
+    renderPublicReviews();
+
+  } catch(e) {
+    console.error('Firebase error:', e);
+    showDBStatus(lang==='es'?'⚠️ Sin conexión — modo local':'⚠️ Offline — local mode', false);
+    // Fallback a localStorage si no hay internet
+    try {
+      const c = localStorage.getItem('bp_clients');
+      const r = localStorage.getItem('bp_reviews');
+      appData.clients = c ? JSON.parse(c) : [];
+      appData.reviews = r ? JSON.parse(r) : [];
+    } catch { appData.clients=[]; appData.reviews=[]; }
+    renderDashboard();
+    renderPublicReviews();
+  }
+}
+
+/* ── GUARDAR datos en Firebase ── */
+async function saveDB() {
+  // Guardar también en localStorage como respaldo offline
+  try {
+    localStorage.setItem('bp_clients', JSON.stringify(appData.clients));
+    localStorage.setItem('bp_reviews', JSON.stringify(appData.reviews));
+  } catch(e) {}
+
+  if (!fbLoaded || !db) return;
+  // La sincronización real se hace en cada función individual (addClient, addReview, etc.)
+}
+
+/* ── GUARDAR cliente en Firebase ── */
+async function saveClientToDB(client) {
+  if (!fbLoaded || !db) return;
+  try {
+    if (client._fbId) {
+      await db.collection('clients').doc(client._fbId).set(client);
+    } else {
+      const ref = await db.collection('clients').add(client);
+      client._fbId = ref.id;
+    }
+  } catch(e) { console.error('Error guardando cliente:', e); }
+}
+
+/* ── GUARDAR reseña en Firebase ── */
+async function saveReviewToDB(review) {
+  if (!fbLoaded || !db) return;
+  try {
+    if (review._fbId) {
+      await db.collection('reviews').doc(review._fbId).set(review);
+    } else {
+      const ref = await db.collection('reviews').add(review);
+      review._fbId = ref.id;
+    }
+  } catch(e) { console.error('Error guardando reseña:', e); }
+}
+
+/* ── ELIMINAR reseña de Firebase ── */
+async function deleteReviewFromDB(fbId) {
+  if (!fbLoaded || !db || !fbId) return;
+  try { await db.collection('reviews').doc(fbId).delete(); } catch(e) {}
+}
+
+/* ── ELIMINAR cliente de Firebase ── */
+async function deleteClientFromDB(fbId) {
+  if (!fbLoaded || !db || !fbId) return;
+  try { await db.collection('clients').doc(fbId).delete(); } catch(e) {}
+}
+
+// Exportar backup en JSON
+function exportBackup() {
+  const data = { clients: appData.clients, reviews: appData.reviews, exportDate: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'briggith_backup_' + new Date().toISOString().split('T')[0] + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(lang==='es'?'✅ Backup descargado':'✅ Backup downloaded','success');
+}
+
+// Importar backup desde JSON
+function importBackup(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.clients) {
+        for (const c of data.clients) { await saveClientToDB(c); }
+        appData.clients = data.clients;
+      }
+      if (data.reviews) {
+        for (const r of data.reviews) { await saveReviewToDB(r); }
+        appData.reviews = data.reviews;
+      }
+      saveDB();
+      renderDashboard();
+      renderPublicReviews();
+      showToast(lang==='es'?'✅ Datos restaurados en la nube':'✅ Data restored to cloud','success');
+    } catch {
+      showToast(lang==='es'?'❌ Archivo inválido':'❌ Invalid file','error');
+    }
+  };
+  reader.readAsText(file);
+}
+
+let appData = { clients: [], reviews: [] };
+
+/* ─────────────────────────────────────
+   STATE
+───────────────────────────────────── */
+let lang = 'es';
+let currentView = 'public';
+let selectedStars = 5;
+let currentClientId = null;
+
+/* ─────────────────────────────────────
+   VIEW SYSTEM
+───────────────────────────────────── */
+function showView(v) {
+  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+  document.getElementById('view-' + v).classList.add('active');
+  currentView = v;
+  if (v === 'dashboard') { renderDashboard(); showDash('overview'); }
+  window.scrollTo(0,0);
+}
+
+function goTo(sectionId) {
+  // If not on public view, switch first
+  if (currentView !== 'public') {
+    showView('public');
+    setTimeout(() => {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+    }, 100);
+  } else {
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+  }
+}
+
+function showDash(section) {
+  document.querySelectorAll('.dash-section').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.sidebar-link').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.mobile-nav-btn').forEach(el => el.classList.remove('active'));
+  const ds = document.getElementById('ds-' + section);
+  const sl = document.getElementById('sl-' + section);
+  const mn = document.getElementById('mn-' + section);
+  if (ds) ds.classList.add('active');
+  if (sl) sl.classList.add('active');
+  if (mn) mn.classList.add('active');
+  renderDashSection(section);
+}
+
+/* ─────────────────────────────────────
+   LANGUAGE
+───────────────────────────────────── */
+function setLang(l) {
+  lang = l;
+  const d = i18n[l];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (d[key] !== undefined) el.textContent = d[key];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.getAttribute('data-i18n-ph');
+    if (d[key] !== undefined) el.placeholder = d[key];
+  });
+  // Lang buttons
+  ['btn-es','btn-en','dbtn-es','dbtn-en'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.classList.toggle('active', id.endsWith('-' + l));
+  });
+  // Refresh dynamic content
+  renderServices();
+  renderPublicReviews();
+  renderConditionsGrid();
+  renderAllergyTypes();
+  if (currentView === 'dashboard') renderDashboard();
+}
+
+function T(key) { return i18n[lang][key] || key; }
+
+/* ─────────────────────────────────────
+   SERVICES RENDER
+───────────────────────────────────── */
+function renderServices() {
+  const g = document.getElementById('services-grid');
+  if (!g) return;
+  g.innerHTML = SERVICES.map(s => `
+    <div class="service-card">
+      <span class="service-icon">${s.icon}</span>
+      <div class="service-name">${lang==='es'?s.es:s.en}</div>
+      <div class="service-desc">${lang==='es'?s.desc_es:s.desc_en}</div>
+    </div>`).join('');
+}
+
+/* ─────────────────────────────────────
+   CONDITIONS & ALLERGY GRIDS
+───────────────────────────────────── */
+function renderConditionsGrid() {
+  const g = document.getElementById('conditions-grid');
+  if (!g) return;
+  g.innerHTML = '';
+  CONDITIONS_LIST.forEach(c => {
+    const item = document.createElement('label');
+    item.className = 'check-item';
+    item.innerHTML = `<input type="checkbox" value="${c.key}"><div class="check-box"></div><span class="check-label">${lang==='es'?c.es:c.en}</span>`;
+    item.querySelector('input').addEventListener('change', () => item.classList.toggle('selected', item.querySelector('input').checked));
+    g.appendChild(item);
+  });
+}
+
+function renderAllergyTypes() {
+  const g = document.getElementById('allergy-types-grid');
+  if (!g) return;
+  g.innerHTML = '';
+  ALLERGY_TYPES.forEach(a => {
+    const item = document.createElement('label');
+    item.className = 'check-item';
+    item.innerHTML = `<input type="checkbox" value="${a.key}"><div class="check-box"></div><span class="check-label">${lang==='es'?a.es:a.en}</span>`;
+    item.querySelector('input').addEventListener('change', () => item.classList.toggle('selected', item.querySelector('input').checked));
+    g.appendChild(item);
+  });
+}
+
+function renderConditionsGridAdmin(containerId) {
+  const g = document.getElementById(containerId);
+  if (!g) return;
+  g.innerHTML = '';
+  CONDITIONS_LIST.forEach(c => {
+    const item = document.createElement('label');
+    item.className = 'check-item';
+    item.style.padding = '7px 10px';
+    item.innerHTML = `<input type="checkbox" value="${c.key}"><div class="check-box"></div><span class="check-label" style="font-size:12px">${lang==='es'?c.es:c.en}</span>`;
+    item.querySelector('input').addEventListener('change', () => item.classList.toggle('selected', item.querySelector('input').checked));
+    g.appendChild(item);
+  });
+}
+
+/* ─────────────────────────────────────
+   DYNAMIC FORM TOGGLES
+───────────────────────────────────── */
+function togglePregnancy() {
+  const val = document.getElementById('f-pregnant').value;
+  document.getElementById('block-pregnancy').classList.toggle('visible', val === 'yes');
+}
+
+function toggleAllergies() {
+  const val = document.getElementById('f-allergies').value;
+  document.getElementById('block-allergies').classList.toggle('visible', val === 'yes');
+}
+
+/* ─────────────────────────────────────
+   EVALUATION STEPS
+───────────────────────────────────── */
+function evalStep(step) {
+  if (step === 2 && !document.getElementById('f-name').value.trim()) {
+    showToast(T('lbl_name') + '?', 'error'); return;
+  }
+  for (let i=1; i<=4; i++) {
+    const el = document.getElementById('step' + i);
+    const ps = document.getElementById('ps' + i);
+    if (el) el.classList.toggle('active', i === step);
+    if (ps) ps.classList.toggle('done', i <= step);
+  }
+  if (step === 4) generatePublicResult();
+  window.scrollTo({ top: document.querySelector('.eval-form-wrapper').offsetTop - 90, behavior:'smooth' });
+}
+
+function generatePublicResult() {
+  const name = document.getElementById('f-name').value || 'amiga';
+  const conditions = [];
+  document.querySelectorAll('#conditions-grid input:checked').forEach(cb => conditions.push(cb.value));
+  const pregnant = document.getElementById('f-pregnant').value;
+  const trimester = pregnant==='yes' ? document.getElementById('f-trimester').value : '0';
+  const highRisk = pregnant==='yes' ? document.getElementById('f-high-risk').value : 'no';
+  const hasAllergies = document.getElementById('f-allergies').value === 'yes';
+  const allergyKeys = hasAllergies ? Array.from(document.querySelectorAll('#allergy-types-grid input:checked')).map(cb=>cb.value) : [];
+  const meds = document.getElementById('f-meds').value;
+  const goal = document.getElementById('f-goal').value;
+
+  const assessment = assess(conditions, pregnant, trimester, highRisk, allergyKeys, meds);
+  const recs = getRecommendations(assessment, goal);
+
+  const mainTherapy = lang==='es' ? recs.mainES : recs.mainEN;
+  const mainNote = lang==='es' ? recs.noteES : recs.noteEN;
+  const extras = lang==='es' ? recs.extras_es : recs.extras_en;
+
+  // Goal-based positive message
+  const goalMessages = {
+    relax: { es:'para relajarte profundamente y liberar toda la tensión acumulada', en:'to relax deeply and release all accumulated tension' },
+    pain: { es:'para aliviar tus molestias y recuperar tu bienestar físico', en:'to relieve your discomfort and restore your physical wellbeing' },
+    energy: { es:'para equilibrar tu energía y restaurar tu armonía interior', en:'to balance your energy and restore your inner harmony' },
+    beauty: { es:'para rejuvenecer tu piel y realzar tu belleza natural', en:'to rejuvenate your skin and enhance your natural beauty' },
+    lymph: { es:'para activar tu drenaje natural y reducir la inflamación', en:'to activate your natural drainage and reduce inflammation' },
+    sport: { es:'para recuperar tus músculos y optimizar tu rendimiento', en:'to recover your muscles and optimize your performance' },
+  };
+  const goalNote = (goalMessages[goal] || goalMessages.relax)[lang];
+
+  const adaptTag = lang==='es' ? recs.adaptationTagES : recs.adaptationTagEN;
+
+  const result = document.getElementById('eval-result');
+  result.innerHTML = `
+    <div class="result-card">
+      <div class="result-header">
+        <div class="result-icon">✨</div>
+        <div>
+          <div class="result-title">${T('result_title')}</div>
+          <div class="result-subtitle">${T('result_greeting')} ${name} — ${T('result_found')}</div>
+        </div>
+      </div>
+      <p style="color:var(--gray);font-size:14px;margin-bottom:20px;line-height:1.7">
+        ${lang==='es'?'Tu sesión será diseñada especialmente':'Your session will be especially designed'} ${goalNote}.
+      </p>
+      <p style="font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);margin-bottom:12px">${T('result_based')}</p>
+      <div class="therapy-recommend">
+        <div class="therapy-main">${mainTherapy}</div>
+        <div class="therapy-desc">${mainNote}</div>
+        ${adaptTag ? `<div style="margin-top:8px"><span style="background:var(--yellow-light);color:var(--yellow);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:0.06em">${adaptTag}</span></div>` : ''}
+      </div>
+      <p style="font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray);margin:20px 0 10px">${T('result_also')}</p>
+      <ul class="therapy-list">
+        ${extras.map(e=>`<li>${e}</li>`).join('')}
+      </ul>
+      <div style="background:linear-gradient(135deg,#fdf8f0,#fef9f0);border:1.5px solid var(--gold-light);border-radius:var(--radius);padding:20px 24px;margin-top:24px">
+        <p style="font-size:14px;color:var(--charcoal);line-height:1.7;margin-bottom:16px">
+          ${lang==='es'
+            ? '✨ Contáctame directamente para reservar tu sesión personalizada. ¡Será una experiencia transformadora!'
+            : '✨ Contact me directly to book your personalized session. It will be a transformative experience!'}
+        </p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a href="https://wa.me/${WA_NUMBER}?text=${lang==='es'?WA_MSG_ES:WA_MSG_EN}"
+             target="_blank" rel="noopener"
+             class="btn btn-gold" style="flex:1;justify-content:center;min-width:200px;text-decoration:none">
+            📱 ${lang==='es' ? 'Agendar por WhatsApp' : 'Book via WhatsApp'}
+          </a>
+          <a href="mailto:${GMAIL_TO}?subject=${encodeURIComponent(lang==='es'?'Solicitud de cita — Briggith Pernía':'Appointment request — Briggith Pernía')}&body=${lang==='es'?WA_MSG_ES:WA_MSG_EN}"
+             class="btn btn-outline" style="flex:1;justify-content:center;min-width:160px;text-decoration:none">
+            ✉️ ${lang==='es' ? 'Escribir por correo' : 'Send email'}
+          </a>
+        </div>
+      </div>
+    </div>`;
+
+  // Save to Firebase — initialize if needed
+  const newC = {
+    id: Date.now(),
+    name: document.getElementById('f-name').value,
+    age: parseInt(document.getElementById('f-age').value)||0,
+    email: '',
+    conditions, meds,
+    allergies: hasAllergies ? allergyKeys.join(', ') + (document.getElementById('f-allergy-other').value ? ', '+document.getElementById('f-allergy-other').value : '') : '',
+    notes: document.getElementById('f-reason').value,
+    sessions: [],
+    createdAt: new Date().toISOString().split('T')[0],
+    pregnant, trimester, highRisk,
+    bmi: window._bmiData ? window._bmiData.bmi : null,
+    fromPublicForm: true
+  };
+
+  // Save even if name already exists (different timestamp = different entry)
+  // Only skip true duplicates (same name within 5 seconds)
+  const isDuplicate = appData.clients.find(c =>
+    c.name === newC.name && newC.name &&
+    Math.abs((c.id || 0) - newC.id) < 5000
+  );
+
+  if (!isDuplicate) {
+    appData.clients.push(newC);
+    // Initialize Firebase if not loaded yet, then save
+    loadFirebase().then(() => {
+      saveClientToDB(newC);
+      saveDB();
+    }).catch(() => {
+      // Fallback: save to localStorage
+      saveDB();
+    });
+  }
+}
+
+/* ─────────────────────────────────────
+   DASHBOARD
+───────────────────────────────────── */
+function renderDashboard() {
+  renderKPIs();
+  renderRecentClients();
+}
+
+function renderDashSection(s) {
+  if (s==='clients') renderClientsTable();
+  if (s==='sessions') renderSessions();
+  if (s==='reviews') renderAdminReviews();
+  if (s==='clinical') renderClinicalRules();
+  if (s==='ai') { populateAIClientSelect(); }
+}
+
+function renderKPIs() {
+  const g = document.getElementById('kpi-grid');
+  if (!g) return;
+  const totalSessions = appData.clients.reduce((a,c)=>a+c.sessions.length,0);
+  const attention = appData.clients.filter(c=>{
+    const a = assess(c.conditions||[],c.pregnant||'no',c.trimester||'1',c.highRisk||'no',[],c.meds||'');
+    return a.level==='red'||a.level==='yellow';
+  }).length;
+  const pending = appData.reviews.filter(r=>!r.approved).length;
+  g.innerHTML = `
+    <div class="kpi-card"><div class="kpi-val">${appData.clients.length}</div><div class="kpi-label">${lang==='es'?'Clientes totales':'Total clients'}</div></div>
+    <div class="kpi-card" style="border-left-color:var(--blue)"><div class="kpi-val">${totalSessions}</div><div class="kpi-label">${lang==='es'?'Sesiones registradas':'Recorded sessions'}</div></div>
+    <div class="kpi-card" style="border-left-color:var(--yellow)"><div class="kpi-val">${attention}</div><div class="kpi-label">${lang==='es'?'Requieren atención especial':'Need special attention'}</div></div>
+    <div class="kpi-card" style="border-left-color:var(--green)"><div class="kpi-val">${pending}</div><div class="kpi-label">${lang==='es'?'Reseñas pendientes':'Pending reviews'}</div></div>`;
+}
+
+function renderRecentClients() {
+  const el = document.getElementById('recent-clients-table');
+  if (!el) return;
+  el.innerHTML = buildClientsHTML(appData.clients.slice().reverse().slice(0,6));
+}
+
+function renderClientsTable() {
+  const search = (document.getElementById('search-clients')?.value||'').toLowerCase();
+  const list = appData.clients.filter(c=>!search||c.name.toLowerCase().includes(search)||(c.email||'').toLowerCase().includes(search));
+  const el = document.getElementById('clients-table');
+  if (el) el.innerHTML = buildClientsHTML(list);
+}
+
+function buildClientsHTML(clients) {
+  if (!clients.length) return `<div class="card" style="text-align:center;padding:40px;color:var(--gray)">${lang==='es'?'Sin clientes registradas':'No clients registered'}</div>`;
+  const riskDotClass = { green:'risk-green', blue:'risk-blue', yellow:'risk-yellow', red:'risk-red' };
+  const tagClass = { green:'tag-green', blue:'tag-blue', yellow:'tag-yellow', red:'tag-red' };
+  const rows = clients.map(c=>{
+    const a = assess(c.conditions||[],c.pregnant||'no',c.trimester||'1',c.highRisk||'no',[],c.meds||'');
+    const rLabel = T('risk_' + a.level);
+    return `<tr>
+      <td><strong>${c.name}</strong></td>
+      <td>${c.age||'-'}</td>
+      <td><span class="risk-dot ${riskDotClass[a.level]}"></span>${(c.conditions||[]).length} ${lang==='es'?'cond.':'cond.'}</td>
+      <td><span class="tag ${tagClass[a.level]}">${rLabel}</span></td>
+      <td>${c.sessions.length}</td>
+      <td><button class="btn btn-outline btn-sm" onclick="openClientDetail(${c.id})">${lang==='es'?'Ver detalle':'View detail'}</button></td>
+    </tr>`;
+  }).join('');
+  return `<table><thead><tr><th>${T('th_name')}</th><th>${T('th_age')}</th><th>${T('th_conditions')}</th><th>${T('th_risk')}</th><th>${T('th_sessions')}</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function openClientDetail(id) {
+  currentClientId = id;
+  const c = appData.clients.find(cl=>cl.id===id);
+  if (!c) return;
+  const a = assess(c.conditions||[],c.pregnant||'no',c.trimester||'1',c.highRisk||'no',[],c.meds||'');
+  const recs = getRecommendations(a, 'pain'); // terapeuta ve evaluación completa
+  const tagClass = { green:'tag-green', blue:'tag-blue', yellow:'tag-yellow', red:'tag-red' };
+
+  const condNames = (c.conditions||[]).map(k=>{
+    const f = CONDITIONS_LIST.find(x=>x.key===k);
+    return f ? (lang==='es'?f.es:f.en) : k;
+  }).join(', ') || T('none');
+
+  // ── Alertas internas mejoradas (con avoid + adapt)
+  const alertsHTML = a.flags.map(f=>{
+    const rule = RULES[f];
+    if (!rule) return '';
+    const avoidList = (lang==='es'?rule.avoid_es:rule.avoid_en)||[];
+    const adaptList = (lang==='es'?rule.adapt_es:rule.adapt_en)||[];
+    const note = lang==='es'?rule.note_es:rule.note_en;
+    const isHigh = rule.score >= 8;
+    const isMed  = rule.score >= 5 && rule.score < 8;
+    const alertClass = isHigh ? 'alert-red' : isMed ? 'alert-yellow' : 'alert-blue';
+    const condLabel = CONDITIONS_LIST.find(x=>x.key===f);
+    const label = condLabel ? (lang==='es'?condLabel.es:condLabel.en) : f.replace(/_/g,' ');
+    return `<div class="alert-box ${alertClass}" style="flex-direction:column;gap:6px">
+      <div style="font-weight:700;font-size:13px">${isHigh?'🔴':isMed?'🟡':'🔵'} ${label} (score: ${rule.score})</div>
+      ${avoidList.length ? `<div style="font-size:12px"><strong>${lang==='es'?'❌ Evitar:':'❌ Avoid:'}</strong> ${avoidList.join(' · ')}</div>` : ''}
+      ${adaptList.length ? `<div style="font-size:12px"><strong>${lang==='es'?'⚠ Adaptar:':'⚠ Adapt:'}</strong> ${adaptList.join(' · ')}</div>` : ''}
+      <div style="font-size:11px;opacity:0.9;font-style:italic">${note}</div>
+    </div>`;
+  }).join('') || `<div class="alert-box alert-green"><span>✅</span><div>${T('det_no_alerts')}</div></div>`;
+
+  // ── Combinación de riesgo (si score potenciado)
+  const combinedRiskHTML = a.score > 14 && a.flags.length >= 2 ? `
+    <div class="alert-box alert-red" style="margin-bottom:12px;flex-direction:column">
+      <strong>⚠️ ${lang==='es'?'RIESGO COMBINADO ALTO':'HIGH COMBINED RISK'}</strong>
+      <div style="font-size:12px;margin-top:4px">${lang==='es'
+        ?`Score total: ${a.score} pts — La combinación de ${a.flags.length} condiciones eleva el riesgo. Solo terapias muy suaves.`
+        :`Total score: ${a.score} pts — The combination of ${a.flags.length} conditions elevates risk. Very gentle therapies only.`}
+      </div>
+    </div>` : '';
+
+  // Allergy alerts
+  let allergyAlertHTML = '';
+  if (c.allergies && c.allergies.trim()) {
+    allergyAlertHTML = `<div class="alert-box alert-yellow"><span>⚠️</span><div><strong>${lang==='es'?'Alergias registradas':'Registered allergies'}:</strong> ${c.allergies}
+    <div style="font-size:11px;margin-top:3px">${lang==='es'?'Verificar productos antes de iniciar sesión':'Verify products before starting session'}</div></div></div>`;
+  }
+
+  const mainTherapy = lang==='es' ? recs.mainES : recs.mainEN;
+  const mainNote = lang==='es' ? recs.noteES : recs.noteEN;
+  const safeList = (lang==='es' ? recs.extras_es : recs.extras_en).map(t=>`<li>${t}</li>`).join('');
+  const avoidList = recs.avoidList.map(t=>`<li>— ${t}</li>`).join('');
+
+  // Advanced therapist suggestions
+  const advSugg = [];
+  if (a.flags.includes('pregnancy_t1')||a.flags.includes('pregnancy_highrisk')) advSugg.push(lang==='es'?'🔥 Protocolo de masaje prenatal primer trimestre — sesión de 30 min máximo':'🔥 First trimester prenatal massage protocol — 30 min max');
+  if (a.flags.includes('cancer')) advSugg.push(lang==='es'?'🔥 Formación en masaje oncológico recomendada':'🔥 Oncological massage training recommended');
+  if (a.flags.includes('fibromyalgia')) advSugg.push(lang==='es'?'🔥 Técnica Miofascial suave — evitar puntos gatillo':'🔥 Gentle Myofascial technique — avoid trigger points');
+
+  const advHTML = advSugg.length ? `<div class="advanced-suggestion"><div class="adv-title">💡 ${lang==='es'?'Sugerencias Profesionales':'Professional Tips'}</div>${advSugg.map(s=>`<div class="adv-item">→ ${s}</div>`).join('')}</div>` : '';
+
+  // Sessions
+  const sessHTML = c.sessions.length ? c.sessions.map((s,idx)=>`
+    <div class="session-entry">
+      <div class="session-date">📅 ${s.date} · ${s.duration} min</div>
+      <div class="session-therapy">${s.therapy}</div>
+      <div class="session-note">${s.notes||''}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+        <span class="tag ${s.progress==='mejora'?'tag-green':s.progress==='leve'?'tag-blue':'tag-yellow'}">${s.progress}</span>
+        <button class="btn btn-outline btn-sm" onclick="openEditSession(${id},${idx})">${lang==='es'?'Editar':'Edit'}</button>
+      </div>
+      ${s.zones&&s.zones.length?`<div style="margin-top:8px;font-size:12px;color:var(--gray)">Zonas: ${s.zones.join(', ')}</div>`:''}
+    </div>`).join('') : `<p style="color:var(--gray);font-size:13px">${T('det_no_sessions')}</p>`;
+
+  document.getElementById('client-detail-content').innerHTML = `
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px">
+      <div><h2 style="font-family:var(--font-display);font-size:28px">${c.name}</h2>
+      <div style="color:var(--gray);font-size:13px;margin-top:2px">${c.age?c.age+' años · ':''} ${c.email||''}</div></div>
+      <span class="tag ${tagClass[a.level]}" style="font-size:13px;padding:7px 16px">${T('risk_'+a.level)} · score ${a.score}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+      <div class="card">
+        <div style="font-family:var(--font-display);font-size:18px;margin-bottom:14px;border-bottom:2px solid var(--beige-dark);padding-bottom:10px">${T('det_data')}</div>
+        <div style="font-size:13px">
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--beige-light)"><span style="color:var(--gray);font-size:12px;text-transform:uppercase;letter-spacing:0.06em">${T('det_conditions')}</span><span style="font-weight:500;text-align:right;max-width:60%">${condNames}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--beige-light)"><span style="color:var(--gray);font-size:12px;text-transform:uppercase;letter-spacing:0.06em">${T('det_meds')}</span><span style="font-weight:500">${c.meds||T('none')}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--beige-light)"><span style="color:var(--gray);font-size:12px;text-transform:uppercase;letter-spacing:0.06em">${lang==='es'?'Alergias':'Allergies'}</span><span style="font-weight:500">${c.allergies||T('none')}</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--beige-light)"><span style="color:var(--gray);font-size:12px;text-transform:uppercase;letter-spacing:0.06em">${lang==='es'?'Int. máx.':'Max intensity'}</span><span style="font-weight:700;color:${a.maxAllowed<=1?'var(--red)':a.maxAllowed<=2?'var(--yellow)':'var(--green)'}">${a.maxAllowed}/5</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0"><span style="color:var(--gray);font-size:12px;text-transform:uppercase;letter-spacing:0.06em">${T('det_notes')}</span><span style="font-weight:500;font-style:italic;text-align:right;max-width:60%">${c.notes||'-'}</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-family:var(--font-display);font-size:18px;margin-bottom:14px;border-bottom:2px solid var(--beige-dark);padding-bottom:10px">${T('det_main_rec')}</div>
+        <div style="background:linear-gradient(135deg,#fdf8f0,var(--beige-light));border:1px solid var(--gold-light);border-radius:8px;padding:14px;margin-bottom:12px">
+          <div style="font-family:var(--font-display);font-size:17px">${mainTherapy}</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px">${mainNote}</div>
+          ${recs.adaptationTagES ? `<div style="margin-top:6px"><span style="background:var(--yellow-light);color:var(--yellow);font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px">${lang==='es'?recs.adaptationTagES:recs.adaptationTagEN}</span></div>` : ''}
+        </div>
+        <div style="font-size:11px;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px">${T('det_safe')}</div>
+        <ul class="therapy-list" style="font-size:12px">${safeList}</ul>
+        ${recs.adaptList.length ? `<div style="font-size:11px;font-weight:700;color:var(--yellow);text-transform:uppercase;letter-spacing:0.08em;margin:10px 0 6px">⚠ ${lang==='es'?'Con adaptación':'With adaptation'}</div><ul class="therapy-list" style="font-size:12px;color:#7a5c00">${recs.adaptList.map(x=>`<li>${x}</li>`).join('')}</ul>` : ''}
+        ${avoidList?`<div style="font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.08em;margin:10px 0 6px">❌ ${T('det_avoid')}</div><ul class="therapy-list" style="font-size:12px;color:var(--red)">${avoidList}</ul>`:''}
+        ${advHTML}
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:16px">
+      <div style="font-family:var(--font-display);font-size:18px;margin-bottom:14px;border-bottom:2px solid var(--beige-dark);padding-bottom:10px">🌿 ${T('det_alerts')}</div>
+      ${combinedRiskHTML}${allergyAlertHTML}${alertsHTML}
+    </div>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div style="font-family:var(--font-display);font-size:18px">📋 ${T('det_history')}</div>
+        <button class="btn btn-gold btn-sm" onclick="closeModal('modal-client-detail');openModal('modal-new-session');preselectClient(${c.id})">${T('btn_add_session')}</button>
+      </div>
+      ${sessHTML}
+    </div>`;
+  openModal('modal-client-detail');
+}
+
+function preselectClient(id) {
+  const sel = document.getElementById('ns-client');
+  if (sel) { sel.value = id; loadSessionRec(); }
+}
+
+/* ─────────────────────────────────────
+   SESSIONS
+───────────────────────────────────── */
+function renderSessions() {
+  const all = [];
+  appData.clients.forEach(c => c.sessions.forEach((s,idx) => all.push({...s, clientName:c.name, clientId:c.id, idx})));
+  all.sort((a,b) => b.date.localeCompare(a.date));
+  const el = document.getElementById('sessions-list');
+  if (!el) return;
+  el.innerHTML = all.map(s=>`
+    <div class="session-entry" style="display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start">
+      <div>
+        <div style="font-weight:600;color:var(--black)">${s.clientName}</div>
+        <div class="session-date">📅 ${s.date} · ${s.duration} min</div>
+        <div class="session-therapy">${s.therapy}</div>
+        <div class="session-note">${s.notes||''}</div>
+        ${s.zones&&s.zones.length?`<div style="font-size:12px;color:var(--gray);margin-top:4px">${s.zones.join(', ')}</div>`:''}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+        <span class="tag ${s.progress==='mejora'?'tag-green':s.progress==='leve'?'tag-blue':'tag-yellow'}">${s.progress}</span>
+        <button class="btn btn-outline btn-sm" onclick="openEditSession(${s.clientId},${s.idx})">${lang==='es'?'Editar':'Edit'}</button>
+      </div>
+    </div>`).join('') || `<div class="card" style="text-align:center;padding:40px;color:var(--gray)">${lang==='es'?'Sin sesiones registradas':'No sessions registered'}</div>`;
+  initSessionModal();
+}
+
+function initSessionModal() {
+  const sel = document.getElementById('ns-client');
+  if (sel) sel.innerHTML = appData.clients.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+  const ts = document.getElementById('ns-therapy');
+  if (ts) ts.innerHTML = SERVICES.map(s=>`<option value="${lang==='es'?s.es:s.en}">${s.icon} ${lang==='es'?s.es:s.en}</option>`).join('');
+  const zones = document.getElementById('ns-zones');
+  if (zones) zones.innerHTML = BODY_ZONES.map(z=>`<button class="zone-btn" type="button" onclick="this.classList.toggle('marked')" data-zone="${z.id}">${lang==='es'?z.es:z.en}</button>`).join('');
+  const d = document.getElementById('ns-date');
+  if (d) d.value = new Date().toISOString().split('T')[0];
+}
+
+function loadSessionRec() {
+  const sel = document.getElementById('ns-client');
+  if (!sel) return;
+  const c = appData.clients.find(cl=>cl.id===parseInt(sel.value));
+  if (!c) return;
+  const a = assess(c.conditions||[],c.pregnant||'no',c.trimester||'1',c.highRisk||'no',[],c.meds||'');
+  const recs = getRecommendations(a);
+  const main = lang==='es'?recs.mainES:recs.mainEN;
+  const el = document.getElementById('ns-recommendation');
+  if (el) el.innerHTML = `<div class="alert-box ${a.level==='green'?'alert-green':a.level==='blue'?'alert-blue':'alert-yellow'}"><span>🎯</span><div><strong>${lang==='es'?'Recomendación:':'Recommendation:'} ${main}</strong><div style="font-size:12px;margin-top:2px">${T('risk_'+a.level)}</div></div></div>`;
+  // Preselect therapy
+  const ts = document.getElementById('ns-therapy');
+  if (ts) {
+    const cleanMain = main.replace(/[^\w\s]/g,'').trim().toLowerCase();
+    const match = Array.from(ts.options).find(o=>o.text.toLowerCase().includes(cleanMain.slice(2,15)));
+    if (match) ts.value = match.value;
+  }
+}
+
+async function saveSession() {
+  const clientId = parseInt(document.getElementById('ns-client').value);
+  const c = appData.clients.find(cl=>cl.id===clientId);
+  if (!c) return;
+  const zones = Array.from(document.querySelectorAll('#ns-zones .zone-btn.marked')).map(b=>b.getAttribute('data-zone'));
+  c.sessions.push({
+    date: document.getElementById('ns-date').value,
+    therapy: document.getElementById('ns-therapy').value,
+    duration: parseInt(document.getElementById('ns-duration').value)||60,
+    notes: document.getElementById('ns-notes').value,
+    progress: document.getElementById('ns-progress').value,
+    zones
+  });
+  closeModal('modal-new-session');
+  await saveClientToDB(c);
+  saveDB();
+  showToast(lang==='es'?'✅ Sesión guardada en la nube ☁️':'✅ Session saved to cloud ☁️','success');
+  renderKPIs(); renderRecentClients(); renderSessions();
+}
+
+function openEditSession(cid, idx) {
+  const c = appData.clients.find(cl=>cl.id===cid);
+  if (!c||!c.sessions[idx]) return;
+  const s = c.sessions[idx];
+  document.getElementById('es-therapy').value = s.therapy||'';
+  document.getElementById('es-notes').value = s.notes||'';
+  document.getElementById('es-progress').value = s.progress||'leve';
+  document.getElementById('es-idx').value = `${cid}-${idx}`;
+  openModal('modal-edit-session');
+}
+
+async function saveEditSession() {
+  const [cid, idx] = document.getElementById('es-idx').value.split('-').map(Number);
+  const c = appData.clients.find(cl=>cl.id===cid);
+  if (!c) return;
+  c.sessions[idx].therapy = document.getElementById('es-therapy').value;
+  c.sessions[idx].notes = document.getElementById('es-notes').value;
+  c.sessions[idx].progress = document.getElementById('es-progress').value;
+  closeModal('modal-edit-session');
+  await saveClientToDB(c);
+  saveDB();
+  showToast(lang==='es'?'✅ Sesión actualizada en la nube ☁️':'✅ Session updated in cloud ☁️','success');
+}
+
+/* ─────────────────────────────────────
+   NEW CLIENT
+───────────────────────────────────── */
+function initNewClientModal() {
+  renderConditionsGridAdmin('nc-conditions-grid');
+}
+
+async function saveNewClient() {
+  const name = document.getElementById('nc-name').value.trim();
+  if (!name) { showToast(lang==='es'?'Ingresa el nombre':'Enter name','error'); return; }
+  const conditions = Array.from(document.querySelectorAll('#nc-conditions-grid input:checked')).map(cb=>cb.value);
+  const newClient = {
+    id: Date.now(), name,
+    age: parseInt(document.getElementById('nc-age').value)||0,
+    email: document.getElementById('nc-email').value,
+    conditions, meds: document.getElementById('nc-meds').value,
+    allergies: document.getElementById('nc-allergies-text').value,
+    notes: document.getElementById('nc-notes').value,
+    sessions: [], createdAt: new Date().toISOString().split('T')[0]
+  };
+  appData.clients.push(newClient);
+  await saveClientToDB(newClient);
+  saveDB();
+  closeModal('modal-new-client');
+  showToast(lang==='es'?'✅ Clienta guardada en la nube ☁️':'✅ Client saved to cloud ☁️','success');
+  renderDashboard(); renderClientsTable();
+}
+
+/* ─────────────────────────────────────
+   REVIEWS
+───────────────────────────────────── */
+function renderPublicReviews() {
+  const approved = appData.reviews.filter(r=>r.approved);
+  const g = document.getElementById('public-reviews-grid');
+  if (!g) return;
+  g.innerHTML = approved.map(r=>`
+    <div class="review-card">
+      <div class="stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      <p class="review-text">"${r.text}"</p>
+      <div class="review-author">— ${r.name}</div>
+    </div>`).join('');
+}
+
+function renderReviewLinkCard() {
+  const card = document.getElementById('review-link-card');
+  if (!card) return;
+  const reviewUrl = window.location.href.split('?')[0] + '?review=1';
+  const waText = encodeURIComponent(
+    (lang==='es'
+      ? 'Hola! Gracias por tu sesión. Me encantaría conocer tu experiencia. Puedes dejar tu reseña aquí: '
+      : 'Hi! Thanks for your session. I would love to hear your experience. You can leave your review here: ')
+    + reviewUrl
+  );
+  card.innerHTML = `
+    <div class="card" style="margin-bottom:20px;border-left:4px solid var(--gold)">
+      <div style="font-family:var(--font-display);font-size:18px;margin-bottom:8px">
+        🔗 ${lang==='es'?'Enlace para solicitar reseña':'Review request link'}
+      </div>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:14px">
+        ${lang==='es'?'Envía este enlace solo DESPUÉS de la sesión — nunca antes.':'Send this link ONLY AFTER the session — never before.'}
+      </p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <input type="text" id="review-link-input" value="${reviewUrl}" readonly
+          style="flex:1;min-width:200px;padding:10px 14px;border:1.5px solid var(--beige-dark);border-radius:8px;font-family:var(--font-body);font-size:12px;background:var(--beige-light);color:var(--charcoal)">
+        <button class="btn btn-gold btn-sm" onclick="copyReviewLink()" id="copy-link-btn">
+          📋 ${lang==='es'?'Copiar link':'Copy link'}
+        </button>
+        <a href="https://wa.me/?text=${waText}"
+           target="_blank" class="btn btn-success btn-sm" style="text-decoration:none">
+          💬 ${lang==='es'?'Enviar por WhatsApp':'Send via WhatsApp'}
+        </a>
+      </div>
+    </div>`;
+}
+
+function renderAdminReviews() {
+  renderReviewLinkCard();
+  const el = document.getElementById('reviews-admin-list');
+  if (!el) return;
+  el.innerHTML = appData.reviews.map(r=>`
+    <div class="review-admin-card">
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap">
+          <strong>${r.name}</strong>
+          <span class="tag ${r.approved?'tag-green':'tag-yellow'}">${r.approved?(lang==='es'?'Publicada':'Published'):(lang==='es'?'Pendiente':'Pending')}</span>
+          <span style="color:var(--gold)">${'★'.repeat(r.stars)}</span>
+          <span style="font-size:11px;color:var(--gray)">${r.date}</span>
+        </div>
+        <p style="font-size:13px;color:var(--charcoal);font-style:italic">"${r.text}"</p>
+      </div>
+      <div class="review-actions">
+        ${!r.approved?`<button class="btn btn-success btn-sm" onclick="approveReview(${r.id})">${lang==='es'?'Aprobar':'Approve'}</button>`:''}
+        <button class="btn btn-warning btn-sm" onclick="openEditReview(${r.id})">${lang==='es'?'Editar':'Edit'}</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteReview(${r.id})">${lang==='es'?'Eliminar':'Delete'}</button>
+      </div>
+    </div>`).join('') || `<div class="card" style="text-align:center;padding:40px;color:var(--gray)">${lang==='es'?'Sin reseñas':'No reviews'}</div>`;
+}
+
+async function approveReview(id) {
+  const r = appData.reviews.find(r=>r.id===id);
+  if (r) { r.approved=true; await saveReviewToDB(r); saveDB(); renderAdminReviews(); renderPublicReviews(); showToast(lang==='es'?'✅ Reseña publicada en la nube ☁️':'✅ Review published to cloud ☁️','success'); }
+}
+
+async function deleteReview(id) {
+  if (!confirm(lang==='es'?'¿Eliminar esta reseña?':'Delete this review?')) return;
+  const r = appData.reviews.find(r=>r.id===id);
+  if (r) await deleteReviewFromDB(r._fbId);
+  appData.reviews = appData.reviews.filter(r=>r.id!==id);
+  saveDB();
+  renderAdminReviews(); renderPublicReviews();
+  showToast(lang==='es'?'Reseña eliminada':'Review deleted');
+}
+
+function openEditReview(id) {
+  const r = appData.reviews.find(r=>r.id===id);
+  if (!r) return;
+  document.getElementById('er-name').value = r.name;
+  document.getElementById('er-text').value = r.text;
+  document.getElementById('er-id').value = id;
+  openModal('modal-edit-review');
+}
+
+async function saveEditReview() {
+  const id = parseInt(document.getElementById('er-id').value);
+  const r = appData.reviews.find(r=>r.id===id);
+  if (!r) return;
+  r.name = document.getElementById('er-name').value;
+  r.text = document.getElementById('er-text').value;
+  closeModal('modal-edit-review');
+  await saveReviewToDB(r);
+  saveDB();
+  renderAdminReviews(); renderPublicReviews();
+  showToast(lang==='es'?'✅ Reseña actualizada':'✅ Review updated','success');
+}
+
+function setStars(n) {
+  selectedStars = n;
+  document.querySelectorAll('.star-btn').forEach((btn,i) => btn.classList.toggle('lit', i<n));
+}
+
+async function submitReview() {
+  const name = document.getElementById('r-name').value.trim();
+  const text = document.getElementById('r-text').value.trim();
+  if (!name||!text) { showToast(lang==='es'?'Completa todos los campos':'Fill all fields','error'); return; }
+  const newReview = { id:Date.now(), name, stars:selectedStars, text, approved:false, date:new Date().toISOString().split('T')[0] };
+  appData.reviews.push(newReview);
+  await saveReviewToDB(newReview);
+  saveDB();
+  closeModal('modal-review');
+  showToast(lang==='es'?'✅ Reseña enviada — pendiente de publicación':'✅ Review sent — pending publication','success');
+  document.getElementById('r-name').value = '';
+  document.getElementById('r-text').value = '';
+  setStars(5);
+}
+
+/* ─────────────────────────────────────
+   CLINICAL GUIDE (INTERNAL ONLY)
+───────────────────────────────────── */
+function renderClinicalRules() {
+  const el = document.getElementById('clinical-rules-display');
+  if (!el) return;
+  const legend = `
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px">
+      ${['green','blue','yellow','red'].map(l=>`
+        <div class="card" style="border-left:4px solid var(--${l});padding:16px">
+          <div style="font-weight:700;color:var(--${l});font-size:13px">${T('risk_'+l)}</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px">${T('cg_'+l)}</div>
+        </div>`).join('')}
+    </div>`;
+
+  const conditions_display = [
+    { key:'pregnancy_t1', label_es:'Embarazo 1er Trimestre', label_en:'1st Trimester Pregnancy' },
+    { key:'pregnancy_t2', label_es:'Embarazo 2do Trimestre', label_en:'2nd Trimester Pregnancy' },
+    { key:'pregnancy_t3', label_es:'Embarazo 3er Trimestre', label_en:'3rd Trimester Pregnancy' },
+    { key:'pregnancy_highrisk', label_es:'Embarazo Alto Riesgo', label_en:'High-Risk Pregnancy' },
+    { key:'allergy_oils', label_es:'Alergia: Aceites', label_en:'Allergy: Oils' },
+    { key:'allergy_creams', label_es:'Alergia: Cremas', label_en:'Allergy: Creams' },
+    { key:'allergy_aromas', label_es:'Alergia: Aromas', label_en:'Allergy: Aromas' },
+    ...CONDITIONS_LIST.map(c=>({ key:c.key, label_es:c.es, label_en:c.en }))
+  ];
+
+  const rulesHTML = conditions_display.map(cd=>{
+    const rule = RULES[cd.key];
+    if (!rule) return '';
+    const avoidL = lang==='es'?rule.avoid_es:rule.avoid_en;
+    const safeL = lang==='es'?rule.safe_es:rule.safe_en;
+    const note = lang==='es'?rule.note_es:rule.note_en;
+    const rColor = rule.score>=8?'var(--red)':rule.score>=5?'var(--yellow)':rule.score>=3?'var(--blue)':'var(--green)';
+    return `<div class="card" style="margin-bottom:14px;border-left:4px solid ${rColor}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+        <div><h3 style="font-family:var(--font-display);font-size:18px">${lang==='es'?cd.label_es:cd.label_en}</h3>
+        <p style="font-size:12px;color:var(--gray);margin-top:3px">${note}</p></div>
+        <span class="tag" style="background:${rColor}20;color:${rColor};flex-shrink:0">Score: ${rule.score}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gray);margin-bottom:6px">${T('cg_avoid')}</div>
+        <ul style="list-style:none;font-size:13px">${avoidL.map(a=>`<li style="padding:3px 0;color:var(--charcoal)">— ${a}</li>`).join('')}</ul></div>
+        <div><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--green);margin-bottom:6px">${T('cg_safe')}</div>
+        <ul style="list-style:none;font-size:13px">${safeL.map(s=>`<li style="padding:3px 0;color:var(--green)">✓ ${s}</li>`).join('')}</ul></div>
+      </div>
+    </div>`;
+  }).join('');
+  el.innerHTML = legend + rulesHTML;
+}
+
+/* ─────────────────────────────────────
+   MODALS
+───────────────────────────────────── */
+function openModal(id) {
+  if (id==='modal-new-client') initNewClientModal();
+  if (id==='modal-new-session') initSessionModal();
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if(e.target===o) o.classList.remove('open'); }));
+
+/* ─────────────────────────────────────
+   AUTH
+───────────────────────────────────── */
+function doLogin() {
+  const u = document.getElementById('l-user').value;
+  const p = document.getElementById('l-pass').value;
+  if (u==='briggith' && p==='wellness') {
+    showView('dashboard');
+    showToast(lang==='es'?'✅ Bienvenida, Briggith':'✅ Welcome, Briggith','success');
+  } else {
+    showToast(lang==='es'?'❌ Credenciales incorrectas':'❌ Incorrect credentials','error');
+  }
+}
+function doLogout() { showView('public'); showToast(lang==='es'?'Sesión cerrada':'Logged out'); }
+
+/* ─────────────────────────────────────
+   TOAST
+───────────────────────────────────── */
+function showToast(msg, type='info') {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = 'show ' + type;
+  setTimeout(()=>el.className='', 3200);
+}
+
+/* ─────────────────────────────────────
+   BMI / IMC CALCULATOR
+───────────────────────────────────── */
+function toggleHeightUnit() {
+  const unit = document.getElementById('f-height-unit').value;
+  const ftBlock = document.getElementById('f-height-ft-block');
+  const cmInput = document.getElementById('f-height');
+  if (unit === 'ft') {
+    ftBlock.style.display = 'block';
+    cmInput.style.display = 'none';
+  } else {
+    ftBlock.style.display = 'none';
+    cmInput.style.display = '';
+  }
+  calcBMI();
+}
+
+function calcBMI() {
+  const weightRaw = parseFloat(document.getElementById('f-weight').value);
+  const weightUnit = document.getElementById('f-weight-unit').value;
+  const heightUnit = document.getElementById('f-height-unit').value;
+  if (!weightRaw) { document.getElementById('bmi-display').style.display='none'; return; }
+
+  // Convert weight to kg
+  const weightKg = weightUnit === 'lb' ? weightRaw * 0.453592 : weightRaw;
+
+  // Get height in cm
+  let heightCm;
+  if (heightUnit === 'ft') {
+    const feet = parseFloat(document.getElementById('f-feet').value) || 0;
+    const inches = parseFloat(document.getElementById('f-inches').value) || 0;
+    heightCm = (feet * 30.48) + (inches * 2.54);
+  } else {
+    heightCm = parseFloat(document.getElementById('f-height').value);
+  }
+  if (!heightCm || heightCm < 50) { document.getElementById('bmi-display').style.display='none'; return; }
+
+  const heightM = heightCm / 100;
+  const bmi = weightKg / (heightM * heightM);
+  const bmiRound = Math.round(bmi * 10) / 10;
+
+  let label_es, label_en, color;
+  if (bmi < 18.5)      { label_es='Bajo peso'; label_en='Underweight'; color='var(--blue)'; }
+  else if (bmi < 25)   { label_es='Peso normal'; label_en='Normal weight'; color='var(--green)'; }
+  else if (bmi < 30)   { label_es='Sobrepeso'; label_en='Overweight'; color='var(--yellow)'; }
+  else                 { label_es='Obesidad'; label_en='Obesity'; color='var(--red)'; }
+
+  const box = document.getElementById('bmi-display');
+  document.getElementById('bmi-number').textContent = bmiRound;
+  const lbl = document.getElementById('bmi-label');
+  lbl.textContent = lang==='es' ? label_es : label_en;
+  lbl.style.color = color;
+  box.style.display = 'block';
+  box.style.borderLeftColor = color;
+
+  // Store for assessment
+  window._bmiData = { bmi: bmiRound, weightKg, heightCm, label_es, label_en };
+}
+
+function getBMINote() {
+  if (!window._bmiData) return '';
+  const { bmi, label_es, label_en } = window._bmiData;
+  const l = lang==='es' ? label_es : label_en;
+  if (bmi >= 30) return lang==='es'
+    ? `IMC ${bmi} (${l}) — usar presión progresiva, enfocarse en circulación y drenaje`
+    : `BMI ${bmi} (${l}) — use progressive pressure, focus on circulation and drainage`;
+  if (bmi >= 25) return lang==='es'
+    ? `IMC ${bmi} (${l}) — técnicas moderadas, buena tolerancia a presión`
+    : `BMI ${bmi} (${l}) — moderate techniques, good pressure tolerance`;
+  if (bmi < 18.5) return lang==='es'
+    ? `IMC ${bmi} (${l}) — presión controlada, evitar exceso de fuerza en zonas óseas`
+    : `BMI ${bmi} (${l}) — controlled pressure, avoid excess force on bony areas`;
+  return lang==='es'
+    ? `IMC ${bmi} (${l}) — sin restricciones por peso`
+    : `BMI ${bmi} (${l}) — no weight-related restrictions`;
+}
+
+/* ─────────────────────────────────────
+   AI MODULE — ASISTENTE INTELIGENTE
+───────────────────────────────────── */
+let aiConversationHistory = [];
+let aiSelectedClient = null;
+
+function loadAIContext() {
+  const sel = document.getElementById('ai-client-select');
+  if (!sel) return;
+  const id = parseInt(sel.value);
+  aiSelectedClient = id ? appData.clients.find(c=>c.id===id) : null;
+
+  const summary = document.getElementById('ai-client-summary');
+  if (aiSelectedClient) {
+    const a = assess(aiSelectedClient.conditions||[], aiSelectedClient.pregnant||'no',
+                     aiSelectedClient.trimester||'1', aiSelectedClient.highRisk||'no', [], aiSelectedClient.meds||'');
+    const condNames = (aiSelectedClient.conditions||[]).map(k=>{
+      const f = CONDITIONS_LIST.find(x=>x.key===k);
+      return f ? (lang==='es'?f.es:f.en) : k;
+    }).join(', ') || (lang==='es'?'Ninguna':'None');
+
+    const tagColors = { green:'var(--green)', blue:'var(--blue)', yellow:'var(--yellow)', red:'var(--red)' };
+    summary.style.display = 'block';
+    summary.innerHTML = `
+      <div style="background:var(--beige-light);border-radius:8px;padding:12px 16px;border:1px solid var(--beige-dark)">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <strong style="font-size:14px">${aiSelectedClient.name}</strong>
+          <span style="background:${tagColors[a.level]}20;color:${tagColors[a.level]};font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase">${T('risk_'+a.level)}</span>
+        </div>
+        <div style="font-size:12px;color:var(--gray);margin-top:6px">
+          ${lang==='es'?'Condiciones':'Conditions'}: ${condNames} · 
+          ${lang==='es'?'Medicamentos':'Meds'}: ${aiSelectedClient.meds||'—'} · 
+          ${lang==='es'?'Sesiones':'Sessions'}: ${aiSelectedClient.sessions.length}
+          ${aiSelectedClient.allergies ? ' · ' + (lang==='es'?'Alergias':'Allergies') + ': ' + aiSelectedClient.allergies : ''}
+        </div>
+      </div>`;
+
+    // Reset conversation with new context
+    aiConversationHistory = [];
+  } else {
+    summary.style.display = 'none';
+    aiConversationHistory = [];
+  }
+}
+
+function populateAIClientSelect() {
+  const sel = document.getElementById('ai-client-select');
+  if (!sel) return;
+  sel.innerHTML = `<option value="">${lang==='es'?'Sin clienta seleccionada — consulta general':'No client selected — general consultation'}</option>`;
+  appData.clients.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = c.name + (c.age ? ` (${c.age} años)` : '');
+    sel.appendChild(opt);
+  });
+}
+
+function buildAISystemPrompt() {
+  let system = `Eres un asistente experto en masoterapia terapéutica que ayuda a Briggith Pernía, masajista terapéutica certificada.
+
+SERVICIOS DISPONIBLES:
+Masaje Relajante, Masaje Descontracturante, Drenaje Linfático Corporal, Masaje de Tejido Profundo, Masajes Suaves (Caricias Terapéuticas), Masaje de Manos y Pies, Masaje de Cuello, Masaje Craneofacial, Masaje Facial, Limpieza de Chakras, Limpieza Energética, Limpieza de Espacios, Masaje Metamórfico.
+
+REGLAS CLÍNICAS CLAVE:
+- Trombosis/coágulos: SOLO masaje facial, craneofacial o energético. NUNCA masaje corporal.
+- Anticoagulantes: SOLO presión muy suave. Riesgo de hematomas.
+- Embarazo 1er trimestre: Solo terapias muy suaves y energéticas. Evitar abdomen.
+- Embarazo 2do trimestre: Masaje relajante adaptado (posición lateral). Sin tejido profundo.
+- Embarazo 3er trimestre: Solo técnicas suaves. Sin decúbito prono.
+- Embarazo alto riesgo: SOLO terapias energéticas y contacto mínimo.
+- Cáncer/oncología: Solo masajes suaves. Evitar zona de tratamiento.
+- Osteoporosis: Solo presión superficial. Nunca tejido profundo en columna.
+- Hipertensión: Evitar presión intensa en cuello. Técnicas suaves.
+- Cirugía reciente: Evitar zona operada completamente.
+- Fibromialgia: Solo técnicas muy suaves. Sistema nervioso hipersensible.
+
+FILOSOFÍA: Seguridad primero → Adaptación → Oferta. Cuando no se puede aplicar una técnica, SIEMPRE ofrecer alternativa.
+
+IDIOMA: Responde en ${lang === 'es' ? 'español' : 'inglés'}. Usa lenguaje claro y práctico, sin tecnicismos innecesarios. Si usas términos clínicos, explícalos en palabras simples. Sé concisa y directa.
+
+FORMATO: Usa emojis ocasionalmente (✅ ⚠️ ❌ 💆 🌿) para hacer la respuesta más visual. Estructura con viñetas cuando sea útil.`;
+
+  if (aiSelectedClient) {
+    const c = aiSelectedClient;
+    const a = assess(c.conditions||[], c.pregnant||'no', c.trimester||'1', c.highRisk||'no', [], c.meds||'');
+    const condNames = (c.conditions||[]).map(k=>{
+      const f = CONDITIONS_LIST.find(x=>x.key===k);
+      return f ? f.es : k;
+    }).join(', ') || 'Ninguna';
+
+    // Pregnancy context
+    let pregContext = '';
+    if (c.pregnant === 'yes') {
+      pregContext = `EMBARAZADA: Trimestre ${c.trimester||'1'}, Mes ${c.pregMonth||'?'}, Alto riesgo: ${c.highRisk||'no'}.`;
+    }
+
+    // Sessions summary
+    const lastSession = c.sessions.length ? c.sessions[c.sessions.length-1] : null;
+
+    system += `
+
+PERFIL DE LA CLIENTA ACTUAL:
+- Nombre: ${c.name}, ${c.age || '?'} años
+- Condiciones: ${condNames}
+- Medicamentos: ${c.meds || 'Ninguno'}
+- Alergias: ${c.allergies || 'Ninguna'}
+- Notas: ${c.notes || 'Sin notas'}
+- ${pregContext}
+- Nivel de riesgo calculado: ${a.level} (score: ${a.score})
+- Intensidad máxima permitida: ${a.maxAllowed}/5
+- Total de sesiones previas: ${c.sessions.length}
+${lastSession ? `- Última sesión: ${lastSession.date} — ${lastSession.therapy} — Evolución: ${lastSession.progress}` : '- Sin sesiones previas'}
+${a.blocksAllBody ? '- ⚠️ BLOQUEO TOTAL de masaje corporal por condición vascular crítica' : ''}
+${a.flags.length ? `- Flags clínicos: ${a.flags.join(', ')}` : ''}`;
+  }
+
+  return system;
+}
+
+/* ═══════════════════════════════════════
+   GEMINI API KEY
+   ⚠️  Clave real en config.js (NO subir a GitHub).
+═══════════════════════════════════════ */
+const GEMINI_KEY = (window._BP_CONFIG && window._BP_CONFIG.geminiKey)
+  ? window._BP_CONFIG.geminiKey
+  : 'REEMPLAZA_CON_TU_GEMINI_KEY';
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_KEY}`;
+
+/* ═══════════════════════════════════════
+   PROMPT EXPERTO EN MASOTERAPIA
+   Este es el cerebro clínico del sistema
+═══════════════════════════════════════ */
+function buildGeminiPrompt(userMessage) {
+  let clientContext = '';
+
+  if (aiSelectedClient) {
+    const c = aiSelectedClient;
+    const a = assess(c.conditions||[], c.pregnant||'no', c.trimester||'1', c.highRisk||'no', [], c.meds||'');
+    const condNames = (c.conditions||[]).map(k => {
+      const f = CONDITIONS_LIST.find(x => x.key===k);
+      return f ? f.es : k;
+    }).join(', ') || 'Ninguna';
+
+    const lastSession = c.sessions.length ? c.sessions[c.sessions.length-1] : null;
+    const bmi = c.bmi ? `IMC: ${c.bmi}` : '';
+
+    clientContext = `
+═══════════════════════════════
+PERFIL DE LA CLIENTA ACTUAL
+═══════════════════════════════
+Nombre: ${c.name}
+Edad: ${c.age || 'no indicada'} años
+Condiciones médicas: ${condNames}
+Medicamentos: ${c.meds || 'ninguno'}
+Alergias: ${c.allergies || 'ninguna'}
+${bmi}
+${c.pregnant==='yes' ? `EMBARAZADA: Trimestre ${c.trimester}, Alto riesgo: ${c.highRisk}` : ''}
+Notas: ${c.notes || 'sin notas'}
+Nivel de riesgo calculado: ${a.level} (score: ${a.score}/20)
+Intensidad máxima permitida: ${a.maxAllowed}/5
+Sesiones previas: ${c.sessions.length}
+${lastSession ? `Última sesión: ${lastSession.date} — ${lastSession.therapy} — Evolución: ${lastSession.progress}` : 'Sin sesiones previas'}
+${a.flags.length ? `Alertas clínicas activas: ${a.flags.join(', ')}` : ''}
+`;
+  }
+
+  return `Eres una experta en masoterapia terapéutica con 15 años de experiencia clínica. Asistes a Briggith Pernía, masajista terapéutica certificada en Ecuador.
+
+TU FORMA DE RESPONDER:
+- Hablas como una colega experta, no como un robot
+- Das recomendaciones específicas, detalladas y prácticas
+- Explicas el PORQUÉ de cada recomendación
+- Describes la TÉCNICA exacta: dirección, presión, movimientos
+- Siempre dices qué EVITAR y POR QUÉ
+- Cuando hay varias opciones, explicas cuál es mejor y en qué orden aplicarlas
+- Usas lenguaje claro, sin tecnicismos innecesarios
+- Si usas un término técnico, lo explicas en palabras simples
+- Nunca dices "podría" o "quizás" cuando la respuesta es clara — eres directa
+- Siempre terminas con un consejo práctico adicional
+
+SERVICIOS DISPONIBLES:
+• Masaje Relajante — técnica sueca suave, ideal para estrés y relajación general
+• Masaje Descontracturante — trabajo específico en nódulos de tensión muscular
+• Drenaje Linfático Corporal — movimientos circulares suaves, SIEMPRE centrípetos (hacia el corazón)
+• Masaje de Tejido Profundo — presión sostenida en capas musculares profundas
+• Masajes Suaves / Caricias Terapéuticas — contacto muy ligero, sistema nervioso
+• Masaje de Manos y Pies — reflexología y relajación de extremidades
+• Masaje de Cuello — zona cervical y trapecios
+• Masaje Craneofacial — cráneo, frente, sienes, mandíbula
+• Masaje Facial — relajante, drenante o antiedad
+• Limpieza de Chakras — trabajo energético sin contacto físico intenso
+• Limpieza Energética — depuración de campo energético
+• Masaje Metamórfico — puntos reflejos en pies, manos y cabeza
+
+REGLAS CLÍNICAS QUE SIEMPRE RESPETAS:
+• Várices: NUNCA presión directa sobre venas. Drenaje linfático SIEMPRE de abajo hacia arriba (centrípeto). Presión muy suave, dedos juntos, movimientos lentos.
+• Trombosis: PROHIBIDO masaje corporal. Solo facial, craneofacial o energético.
+• Anticoagulantes: Solo presión superficial. Alto riesgo de hematomas internos.
+• Embarazo 1er trimestre: Solo suave y energético. Evitar abdomen completamente.
+• Embarazo 2do trimestre: Posición lateral izquierda. Sin tejido profundo.
+• Embarazo 3er trimestre: Solo muy suave. Sin decúbito prono. Cuidado con tobillos.
+• Embarazo alto riesgo: Solo energético y contacto mínimo. Derivar a médico.
+• Cáncer: Evitar zona de tratamiento. Masaje suave en zonas sanas permitido.
+• Osteoporosis: Solo superficial. Nunca presión en columna o costillas.
+• Hipertensión: Evitar cuello y nuca con presión. Técnicas suaves en espalda.
+• Fibromialgia: Presión mínima. Sistema nervioso hipersensible. Sesiones cortas.
+• Cirugía reciente: Evitar zona operada completamente. Trabajo distal.
+• IMC alto (sobrepeso/obesidad): Circulación comprometida, priorizar drenaje. Presión progresiva.
+• IMC bajo (bajo peso): Cuidado con zonas óseas. Presión controlada.
+
+FILOSOFÍA: Seguridad → Adaptación → Oferta. Cuando hay restricción, SIEMPRE ofreces alternativa.
+
+${clientContext}
+
+PREGUNTA DE BRIGGITH:
+${userMessage}
+
+Responde como experta. Sé específica, práctica y útil. Si la pregunta es sobre una clienta específica, usa todos los datos de su perfil para dar la mejor respuesta posible.`;
+}
+
+async function sendAIMessage() {
+  const input = document.getElementById('ai-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+  appendAIMessage(msg, 'user');
+
+  const typingId = 'typing-' + Date.now();
+  appendAITyping(typingId);
+
+  // Disable send button
+  const sendBtn = document.getElementById('ai-send-btn');
+  if (sendBtn) { sendBtn.disabled = true; sendBtn.innerHTML = '<div class="loader"></div>'; }
+
+  try {
+    // Build conversation for Gemini
+    const contents = [];
+
+    // Add previous turns
+    for (const turn of aiConversationHistory) {
+      contents.push({
+        role: turn.role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: turn.content }]
+      });
+    }
+
+    // Add current message with full expert prompt
+    contents.push({
+      role: 'user',
+      parts: [{ text: buildGeminiPrompt(msg) }]
+    });
+
+    const response = await fetch(GEMINI_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 1200,
+        }
+      })
+    });
+
+    const data = await response.json();
+    removeTyping(typingId);
+
+    if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+      const reply = data.candidates[0].content.parts[0].text;
+      aiConversationHistory.push({ role: 'user', content: msg });
+      aiConversationHistory.push({ role: 'assistant', content: reply });
+      // Keep history manageable
+      if (aiConversationHistory.length > 12) aiConversationHistory = aiConversationHistory.slice(-12);
+      appendAIMessage(reply, 'bot');
+    } else if (data.error) {
+      removeTyping(typingId);
+      appendAIMessage(`⚠️ Error de API: ${data.error.message || 'Error desconocido'}. Verifica tu clave de Gemini.`, 'bot');
+    } else {
+      appendAIMessage(lang==='es'
+        ? '⚠️ No recibí respuesta. Verifica tu conexión a internet.'
+        : '⚠️ No response received. Check your internet connection.', 'bot');
+    }
+  } catch(e) {
+    removeTyping(typingId);
+    appendAIMessage(lang==='es'
+      ? '⚠️ Error de conexión. Verifica que tienes internet e intenta de nuevo.'
+      : '⚠️ Connection error. Check your internet and try again.', 'bot');
+  } finally {
+    if (sendBtn) { sendBtn.disabled = false; sendBtn.innerHTML = lang==='es'?'Enviar':'Send'; }
+  }
+}
+
+function sendQuickAI(btn) {
+  const input = document.getElementById('ai-input');
+  input.value = btn.textContent;
+  sendAIMessage();
+}
+
+function appendAIMessage(text, type) {
+  const container = document.getElementById('ai-chat-messages');
+  const div = document.createElement('div');
+  div.className = `ai-msg ai-msg-${type}`;
+
+  // Convert markdown-like formatting
+  const formatted = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/\n/g, '<br>');
+
+  div.innerHTML = `
+    <div class="ai-avatar">${type==='user'?'👩‍⚕️':'🤖'}</div>
+    <div class="ai-bubble">${formatted}</div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function appendAITyping(id) {
+  const container = document.getElementById('ai-chat-messages');
+  const div = document.createElement('div');
+  div.className = 'ai-msg ai-msg-bot';
+  div.id = id;
+  div.innerHTML = `<div class="ai-avatar">🤖</div><div class="ai-bubble"><div class="ai-typing"><span></span><span></span><span></span></div></div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function removeTyping(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+/* ─────────────────────────────────────
+   REVIEW PAGE (URL: ?review=1)
+───────────────────────────────────── */
+function checkReviewParam() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('review') === '1') {
+    // Small delay so page renders first
+    setTimeout(() => openModal('modal-review'), 600);
+  }
+}
+
+function copyReviewLink() {
+  const input = document.getElementById('review-link-input');
+  if (!input) return;
+  navigator.clipboard.writeText(input.value).then(() => {
+    const btn = document.getElementById('copy-link-btn');
+    if (btn) { btn.textContent = lang==='es'?'✅ ¡Copiado!':'✅ Copied!'; setTimeout(()=>{ btn.textContent = lang==='es'?'📋 Copiar link':'📋 Copy link'; }, 2000); }
+    showToast(lang==='es'?'Enlace copiado al portapapeles':'Link copied to clipboard','success');
+  }).catch(() => {
+    input.select(); document.execCommand('copy');
+    showToast(lang==='es'?'Enlace copiado':'Link copied','success');
+  });
+}
+
+/* ─────────────────────────────────────
+   PWA — SERVICE WORKER + INSTALL PROMPT
+───────────────────────────────────── */
+let deferredPrompt = null;
+
+// Capturar el evento de instalación
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Mostrar botón de instalación si existe
+  const installBtn = document.getElementById('pwa-install-btn');
+  if (installBtn) installBtn.style.display = 'flex';
+});
+
+// Cuando se instala
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null;
+  showToast('✅ ¡App instalada en tu celular! 📱', 'success');
+  const installBtn = document.getElementById('pwa-install-btn');
+  if (installBtn) installBtn.style.display = 'none';
+});
+
+function installPWA() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choice) => {
+      deferredPrompt = null;
+    });
+  } else {
+    // Manual instructions
+    showToast(
+      navigator.userAgent.includes('iPhone')
+        ? 'En Safari: toca el botón compartir → "Añadir a inicio"'
+        : 'Toca ⋮ en Chrome → "Instalar app" o "Agregar a pantalla de inicio"',
+      'info'
+    );
+  }
+}
+
+// Registrar Service Worker para funcionamiento offline
+if ('serviceWorker' in navigator) {
+  const swCode = `
+    const CACHE = 'briggith-v1';
+    const OFFLINE = ['/'];
+    self.addEventListener('install', e => {
+      e.waitUntil(caches.open(CACHE).then(c => c.addAll(OFFLINE)));
+      self.skipWaiting();
+    });
+    self.addEventListener('activate', e => {
+      e.waitUntil(caches.keys().then(keys =>
+        Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))
+      ));
+      self.clients.claim();
+    });
+    self.addEventListener('fetch', e => {
+      if (e.request.method !== 'GET') return;
+      e.respondWith(
+        fetch(e.request).catch(() => caches.match(e.request))
+      );
+    });
+  `;
+  const swBlob = new Blob([swCode], {type:'application/javascript'});
+  const swURL = URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swURL).catch(() => {});
+}
+
+/* ─────────────────────────────────────
+   INIT
+───────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize Firebase immediately on load — needed for public form saves
+  loadFirebase().then(() => {
+    loadDB();
+  }).catch(() => {
+    loadDB(); // fallback
+  });
+  renderServices();
+  renderConditionsGrid();
+  renderAllergyTypes();
+  renderPublicReviews();
+  setLang('es');
+  checkReviewParam();
+  document.getElementById('l-pass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+});
+</script>
+</body>
+</html>
