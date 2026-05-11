@@ -1,0 +1,6 @@
+# ⚠️  CLAVES PRIVADAS — NUNCA subir a GitHub
+config.js
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
